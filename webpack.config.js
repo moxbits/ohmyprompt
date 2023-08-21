@@ -1,28 +1,18 @@
 const path = require("path");
 
 module.exports = {
+  mode: "development",
   entry: {
-    chatGPTHandler: "./src/content-scripts/chatGPTHandler.ts",
-    twitterHandler: "./src/content-scripts/twitterHandler.ts",
-    redditHandler: "./src/content-scripts/redditHandler.ts",
-    youtubeHandler: "./src/content-scripts/youtubeHandler.ts",
-    pageHandler: "./src/content-scripts/webpageHandler.ts",
-    background: "./src/background.ts",
+    chatGPTHandler: "./src/content-scripts/chatGPTHandler.js",
+    twitterHandler: "./src/content-scripts/twitterHandler.js",
+    redditHandler: "./src/content-scripts/redditHandler.js",
+    youtubeHandler: "./src/content-scripts/youtubeHandler.js",
+    pageHandler: "./src/content-scripts/webpageHandler.js",
+    background: "./src/background.js",
+    popup: "./src/popup.js",
   },
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-  resolve: {
-    extensions: [".ts", ".js", ".tsx", ".jsx"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
-    ],
+    filename: "[name].js",
+    path: path.resolve(__dirname, "js"),
   },
 };

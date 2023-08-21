@@ -1,1 +1,0 @@
-(()=>{"use strict";var e;!function(e){e.NEW_PROMPT="newPrompt",e.GET_PROMPT="getPrompt"}(e||(e={}));const o=[];chrome.runtime.onMessage.addListener(((t,a,s)=>{const{call:c,prompt:n}=t;switch(c){case e.NEW_PROMPT:o.push(n);break;case e.GET_PROMPT:s(o.pop());break;default:console.log("Not a valid option call")}}))})();

@@ -4,7 +4,8 @@
   "description": "a chrome extension for using your browser with GPT batteries included!",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "webpack -w"
   },
   "keywords": [
     "extension",
@@ -21,6 +22,7 @@
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }
