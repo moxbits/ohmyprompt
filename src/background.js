@@ -1,27 +1,17 @@
-import {
-  Prompt,
-  BackgroundRequest,
-  Messages,
-  BackgroundSendResponse,
-} from "./utils/types";
+import { messages } from "./utils/types";
 
-const promptStack = [
-  {
-    message: "hello dude",
-    siteType: "",
-  },
-];
+const promptStack = [];
 
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
-  const { message, prompt } = request;
+  const { action, prompt } = request;
 
-  switch (message) {
-    case Messages.NEW_PROMPT:
+  switch (action) {
+    case messages.NEW_PROMPT:
       promptStack.push(prompt);
       break;
 
-    case Messages.GET_PROMPT:
-      sendResponse({ message: "hey dude", siteType: "" });
+    case messages.GET_PROMPT:
+      sendResponse({ prompt: promptStack.pop() });
       break;
 
     default:

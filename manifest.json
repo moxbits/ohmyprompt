@@ -22,7 +22,7 @@
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*", "https://chat.openai.com/**/*"],
-      "js": ["js/chatGPTHandler.js"]
+      "js": ["build/chatGPTHandler.js"]
     },
     {
       "matches": [
@@ -31,10 +31,23 @@
         "https://x.com/**/*",
         "https://x.com/**/*"
       ],
-      "js": ["js/twitterHandler.js"]
+      "js": ["build/twitterHandler.js"]
+    },
+    {
+      "matches": [
+        "https://youtube.com/*",
+        "https://youtube.com/**/*",
+        "https://www.youtube.com/*",
+        "https://www.youtube.com/**/*"
+      ],
+      "js": ["build/youtubeHandler.js"]
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["build/webpageHandler.js"]
     }
   ],
   "background": {
-    "service_worker": "js/background.js"
+    "service_worker": "build/background.js"
   }
 }

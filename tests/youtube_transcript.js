@@ -1,4 +1,4 @@
-export default class YouTubeTranscriptExtractor {
+class YouTubeTranscriptExtractor {
   constructor(videoURL) {
     this.videoURL = videoURL;
   }
@@ -6,6 +6,7 @@ export default class YouTubeTranscriptExtractor {
   async getTranscript() {
     const langOption = await this.__getLangOptionsWithLink();
     const rawTranscript = await this.__getRawTranscript(langOption[0].link);
+
     return rawTranscript.map((i) => i.text).join(" ");
   }
 
@@ -62,13 +63,19 @@ export default class YouTubeTranscriptExtractor {
     const textNodes = xmlDoc.documentElement.children;
 
     return Array.from(textNodes).map((node) => {
-      const resultText = node.textContent.replace("&#39;", "'"); // removing the ugly characters
-
       return {
         start: node.getAttribute("start"),
         duration: node.getAttribute("dur"),
-        text: resultText,
+        text: node.textContent,
       };
     });
   }
 }
+
+const videoURL = window.location.href;
+const getter = new YouTubeTranscriptExtractor(videoURL);
+
+getter
+  .getTranscript()
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));

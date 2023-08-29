@@ -1,5 +1,6 @@
 export const messages = {
   NEW_PROMPT: "newPrompt",
   GET_PROMPT: "getPrompt",
-  GET_YOUTUBE_TRANSCRIPT: "getYouTubeVideoTranscript",
+  SUMMARIZE_YOUTUBE_VIDEO: "summarizeYouTubeVideo",
+  SUMMARIZE_WEBPAGE_CONTENT: "summarizeWebPageContent",
 };

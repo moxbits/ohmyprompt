@@ -2,6 +2,7 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
+  devtool: "source-map",
   entry: {
     chatGPTHandler: "./src/content-scripts/chatGPTHandler.js",
     twitterHandler: "./src/content-scripts/twitterHandler.js",
@@ -13,6 +14,6 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "js"),
+    path: path.resolve(__dirname, "build"),
   },
 };
