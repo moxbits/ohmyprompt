@@ -1,10 +1,16 @@
 import WebPageClient from "../services/webpage/client";
 
+import { messages } from "../utils/types";
+
 function startWebPageHandler() {
   const client = new WebPageClient();
-  const pageText = client.getText();
+  const pageText = client.getPageAsText();
 
-  const prompt = `This is a webpage text content. Summarize the following but don't omit the details: ${pageText}`;
+  const prompt = {
+    content: pageText,
+    endMessage:
+      "Summarize the provided webpage content that i gave you but don't remove the important parts and details",
+  };
 
   chrome.runtime.sendMessage(
     {
@@ -13,7 +19,7 @@ function startWebPageHandler() {
     },
     () => {
       window.open("https://chat.openai.com", "_blank");
-    }
+    },
   );
 }
 

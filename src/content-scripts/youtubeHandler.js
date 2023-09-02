@@ -8,7 +8,11 @@ async function startYouTubeHandler() {
   const youtubeClient = new YouTubeClient(videoURL);
   const videoTranscript = await youtubeClient.getCurrentVideoTranscript();
 
-  const prompt = `This is a youtube transcript. Summarize the following but don't omit the details: ${videoTranscript}`;
+  const prompt = {
+    content: videoTranscript,
+    endMessage:
+      "Summarize the youtube video transcript that i provided for you and do not omit the important parts and details of it",
+  };
 
   chrome.runtime.sendMessage(
     {
@@ -17,7 +21,7 @@ async function startYouTubeHandler() {
     },
     () => {
       window.open("https://chat.openai.com", "_blank");
-    }
+    },
   );
 }
 
