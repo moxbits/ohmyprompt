@@ -29,3 +29,11 @@ document.querySelector("#yt-test-btn").addEventListener("click", () => {
     });
   });
 });
+
+document.querySelector("#page-test-btn").addEventListener("click", () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      action: messages.SUMMARIZE_WEBPAGE_CONTENT,
+    });
+  });
+});

@@ -44,7 +44,7 @@
     },
     {
       "matches": ["<all_urls>"],
-      "js": ["build/webpageHandler.js"]
+      "js": ["build/pageHandler.js"]
     }
   ],
   "background": {
