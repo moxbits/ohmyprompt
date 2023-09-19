@@ -1,17 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>OhMyChat Popup</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Oh My Chat Popup</title>
-</head>
+  <body>
+    <!-- <button id="tweets-test-btn">Summarize Tweets</button> -->
+    <!-- <button id="threads-test-btn">Summarize Treads</button> -->
+    <!-- <button id="yt-test-btn">Summarize YouTube</button> -->
+    <!-- <button id="page-test-btn">Summarize WebPage</button> -->
+    <!--ChatGPT Normal Popup View-->
+    <div class="container about hidden">
+      <h1 class="badge about">OhMyChat</h1>
+      <img src="../assets/icons/icon-128.png" alt="OhMyChat Logo" />
+      <p class="description-text">
+        You are currently using the OhMyChat Chrome extension v0.1
+      </p>
+    </div>
+    <!--ChatGPT Summary Popup View-->
+    <!--Normal Popup View-->
+    <div class="container normal hidden">
+      <h1 class="badge normal">Webpage Panel</h1>
+      <img src="../assets/icons/icon-128.png" alt="OhMyChat Logo" />
+      <p class="summary-options-text">Summary options:</p>
+      <button id="webpage-content-btn">Summarize Content</button>
+    </div>
+    <!--YouTube Popup View-->
+    <div class="container youtube hidden">
+      <h1 class="badge youtube">YouTube Panel</h1>
+      <img src="../assets/icons/youtube.png" alt="YouTube Logo" />
+      <p class="summary-options-text">Summary options:</p>
+      <button id="youtube-transcript-btn">Video Transcript</button>
+    </div>
+    <!--Twitter Tweets List Popup View-->
+    <div class="container twitter hidden">
+      <h1 class="badge twitter">Twitter Panel</h1>
+      <img src="../assets/icons/twitter.png" alt="Twitter Logo" />
+      <p class="summary-options-text">Summary options:</p>
+      <label for="tweets-amount">Tweet Amounts:</label>
+      <input id="tweets-amount" name="amount" type="number" value="20" />
+      <button id="twitter-tweets-btn">Tweet List</button>
+    </div>
+    <!--Twitter Thread Popup View-->
+    <div class="container twitter-thread hidden">
+      <h1 class="badge twitter">Twitter Panel</h1>
+      <img src="../assets/icons/twitter.png" alt="Twitter Logo" />
+      <p class="summary-options-text">Summary options:</p>
+      <button id="twitter-thread-btn">Current Thread</button>
+    </div>
+    <!--Gmail Popup View-->
+    <!--Telegram Web Popup View-->
+    <!--Reddit Popup View-->
+  </body>
 
-<body>
-  <button id="test-btn">Test ChatGPT</button>
-  <button id="yt-test-btn">Summarize YouTube</button>
-  <button id="page-test-btn">Summarize WebPage</button>
-</body>
-
-<script src="../build/popup.js"></script>
-
+  <script src="../build/popup.js"></script>
 </html>

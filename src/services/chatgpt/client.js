@@ -1,41 +1,52 @@
-import { delay } from "../../utils/time";
+import WaitingModal from "../../utils/waiting";
+
+import { waitUntil } from "../../utils/time";
 
 export default class ChatGPTClient {
   constructor() {}
 
-  static TOKEN_LIMIT = 30000;
+  async sendMessage({ title, content, ending, tokenLimit }) {
+    this.__tokenLimit = tokenLimit;
 
-  static LARGE_MESSAGE_START_PROMPT =
-    "From now on you just receive prompts. These prompts are a large sequence of textual content for you to process them carefully. just read them and process them. don't say or answer anything. each time you received a prompt just say `got it` for answer and continue. at the end you will be prompted with this: `THE PROMPT IS NOW COMPLETE!!!` and then you tell anything that you learned from the provided content";
-  static LARGE_MESSAGE_END_PROMPT = "`THE PROMPT IS NOW COMPLETE!!!`";
+    if (content.length < tokenLimit)
+      await this.__insertTextIntoChatGPTAndSubmit(
+        `${title}\n\n${content}\n\n${ending}`,
+      );
+    else {
+      const prompts = this.__splitLargeTextIntoSmallerTexts(content);
 
-  async sendMessage({ content, endMessage }) {
-    if (content.length < ChatGPTClient.TOKEN_LIMIT)
-      await this.__insertTextIntoChatGPTAndSubmit(content);
-    else await this.__sendLargeMessage(content);
+      this.__waitModal = new WaitingModal(
+        "Inserting Prompts to ChatGPT",
+        prompts.length,
+      );
 
-    await this.__insertTextIntoChatGPTAndSubmit(endMessage);
+      await this.__waitModal.showLoadingPopup();
+
+      await this.__insertTextIntoChatGPTAndSubmit(title);
+      await this.__waitForChatGPTCompleteResponse();
+
+      await this.__sendLargeMessage(prompts);
+
+      await this.__insertTextIntoChatGPTAndSubmit(ending);
+
+      this.__waitModal.closeLoadingPopup();
+    }
   }
 
-  async __sendLargeMessage(text) {
-    const prompts = this.__splitLargeTextIntoSmallerTexts(text);
-
-    await this.__insertTextIntoChatGPTAndSubmit(
-      ChatGPTClient.LARGE_MESSAGE_START_PROMPT
-    );
-
+  async __sendLargeMessage(prompts) {
     for (const prompt of prompts) {
-      await this.__sendNextMessageAndWait(prompt);
-      console.log(prompt);
+      await this.__insertTextIntoChatGPTAndSubmit(
+        `get this prompt chunk, process it, memorize and remember it completely and say 'GOT IT':\n${prompt}`,
+      );
+      await this.__waitForChatGPTCompleteResponse();
+      this.__waitModal.increaseIndexProgress();
     }
-
-    await this.__sendNextMessageAndWait(ChatGPTClient.LARGE_MESSAGE_END_PROMPT);
   }
 
   __splitLargeTextIntoSmallerTexts(text) {
     const substrings = [];
     let currentIndex = 0;
-    const maxLength = ChatGPTClient.TOKEN_LIMIT;
+    const maxLength = this.__tokenLimit;
 
     while (currentIndex < text.length) {
       const substring = text.substr(currentIndex, maxLength);
@@ -47,30 +58,41 @@ export default class ChatGPTClient {
   }
 
   async __insertTextIntoChatGPTAndSubmit(text) {
-    const textarea = document.querySelector("textarea");
+    const textarea = this.__getTextareaElement();
     textarea.value = text;
 
     const inputEvent = new Event("input", { bubbles: true });
     textarea.dispatchEvent(inputEvent);
 
-    await delay(1000);
+    await this.__waitForSubmitButtonToGetGreen();
 
-    const submitBtn = [...document.querySelectorAll("button")].at(-2);
-    submitBtn.click();
+    this.__getSubmitBtnElement().click();
   }
 
-  async __sendNextMessageAndWait(text) {
-    while (true) {
-      const currentButtonText = document.querySelector(
-        "#__next > div.overflow-hidden.w-full.h-full.relative.flex.z-0 > div.relative.flex.h-full.max-w-full.flex-1.overflow-hidden > div > main > div > div.absolute.bottom-0.left-0.w-full.border-t.md\\:border-t-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.md\\:bg-vert-light-gradient.bg-white.dark\\:bg-gray-800.md\\:\\!bg-transparent.dark\\:md\\:bg-vert-dark-gradient.pt-2.md\\:pl-2.md\\:w-\\[calc\\(100\\%-\\.5rem\\)\\] > form > div > div:nth-child(1) > div > div.flex.items-center.md\\:items-end > div > button"
-      ).innerText;
+  async __waitForChatGPTCompleteResponse() {
+    await waitUntil(
+      () => this.__getGeneratorBtnElement().innerText === "Stop generating",
+    );
+    await waitUntil(
+      () => this.__getGeneratorBtnElement().innerText === "Regenerate",
+    );
+  }
 
-      await delay(1000);
+  async __waitForSubmitButtonToGetGreen() {
+    await waitUntil(() => this.__getSubmitBtnElement().style.backgroundColor);
+  }
 
-      if (currentButtonText != "Stop generating") {
-        this.__insertTextIntoChatGPTAndSubmit(text);
-        break;
-      }
-    }
+  __getTextareaElement() {
+    return document.querySelector("textarea");
+  }
+
+  __getSubmitBtnElement() {
+    return [...document.querySelectorAll("button")].at(-2);
+  }
+
+  __getGeneratorBtnElement() {
+    return document.querySelector(
+      "#__next > div.overflow-hidden.w-full.h-full.relative.flex.z-0 > div.relative.flex.h-full.max-w-full.flex-1.overflow-hidden > div > main > div > div.absolute.bottom-0.left-0.w-full.border-t.md\\:border-t-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.md\\:bg-vert-light-gradient.bg-white.dark\\:bg-gray-800.md\\:\\!bg-transparent.dark\\:md\\:bg-vert-dark-gradient.pt-2.md\\:pl-2.md\\:w-\\[calc\\(100\\%-\\.5rem\\)\\] > form > div > div:nth-child(1) > div > div.flex.items-center.md\\:items-end > div > button",
+    );
   }
 }

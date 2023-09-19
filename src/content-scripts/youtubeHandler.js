@@ -1,32 +1,35 @@
-// this will be added to youtube pages in chrome tabs
-
 import YouTubeClient from "../services/youtube/client";
-import { messages } from "../utils/types";
+import requests from "../utils/requests";
 
 async function startYouTubeHandler() {
   const videoURL = "";
   const youtubeClient = new YouTubeClient(videoURL);
+
+  const videoTitle = document.title;
   const videoTranscript = await youtubeClient.getCurrentVideoTranscript();
 
   const prompt = {
+    title: `I want to provide you content of a youtube video transcript.\nYouTube video title: ${videoTitle}`,
     content: videoTranscript,
-    endMessage:
+    ending:
       "Summarize the youtube video transcript that i provided for you and do not omit the important parts and details of it",
+    tokenLimit: 20000,
   };
 
-  chrome.runtime.sendMessage(
-    {
-      action: messages.NEW_PROMPT,
-      prompt,
-    },
-    () => {
-      window.open("https://chat.openai.com", "_blank");
-    },
-  );
+  requests.sendPromptToChatGPT(prompt);
 }
 
-chrome.runtime.onMessage.addListener((message) => {
-  if (message.action === messages.SUMMARIZE_YOUTUBE_VIDEO) {
-    startYouTubeHandler();
+chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
+  switch (message.action) {
+    case requests.types.GET_YOUTUBE_TRANSCRIPT:
+      startYouTubeHandler();
+      break;
+
+    case requests.types.GET_SITE_TYPE:
+      sendResponse({ type: "youtube" });
+      break;
+
+    default:
+      console.error("ohmychat youtube: invalid request type");
   }
 });

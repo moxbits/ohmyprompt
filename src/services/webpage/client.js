@@ -7,10 +7,15 @@ export default class WebPageClient {
     return this.__extractTextFromBody();
   }
 
+  getPageTitle() {
+    return document.title;
+  }
+
   __extractTextFromBody() {
     this.__removeAllStyleTags();
     this.__removeAllScriptTags();
-    return this._bodyClone.textContent;
+    const rawText = this._bodyClone.textContent;
+    return rawText.replaceAll("\t", " ").replaceAll("\n", " ");
   }
 
   __removeAllStyleTags() {

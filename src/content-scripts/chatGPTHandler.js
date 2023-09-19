@@ -1,14 +1,14 @@
-import { messages } from "../utils/types";
+import requests from "../utils/requests";
 
 import ChatGPTClient from "../services/chatgpt/client";
 
 async function startChatGPTHandler() {
   chrome.runtime.sendMessage(
-    { action: messages.GET_PROMPT },
-    async (response) => {
+    { action: requests.types.GET_PROMPT },
+    async ({ prompt }) => {
       const client = new ChatGPTClient();
-      await client.sendMessage(response.prompt);
-    }
+      await client.sendMessage(prompt);
+    },
   );
 }
 

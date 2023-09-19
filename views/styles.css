@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+img {
+  width: 100px;
+  height: auto;
+}
+
+button {
+  color: #ffffff;
+  background-color: #31547d;
+  border: solid 1px #31547d;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+button:hover,
+button:active {
+  color: #dadada;
+  background-color: #175463;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  background-color: #fff3bc;
+}
+
+.badge {
+  margin: 1rem;
+  font-size: 1.2rem;
+  background-color: #bfbfbf;
+  color: #535353;
+  padding: 0 0.5rem;
+  border: solid 2px grey;
+  border-radius: 50px;
+}
+
+.summary-options-text {
+  margin: 1rem;
+}
+
+.description-text {
+  text-align: center;
+  margin: 1rem;
+  font-size: 1rem;
+}
+
+.badge.normal {
+  color: #615900;
+  background-color: #fffa82;
+  border-color: #877c00;
+}
+
+.badge.about {
+  color: #874700;
+  background-color: #fcab3f;
+  border-color: #874700;
+}
+
+.badge.youtube {
+  color: #700000;
+  background-color: #fc5d5d;
+  border-color: #700000;
+}
+
+.badge.twitter {
+  color: #002870;
+  background-color: #74acff;
+  border-color: #002870;
+}
+
+.container.about {
+  background-color: #ffd48e;
+}
+
+.container.youtube {
+  background-color: #ff9c9c;
+}
+
+.container.twitter,
+.container.twitter-thread {
+  background-color: #d2fdff;
+}
+
+#tweets-amount {
+  margin: 0.2rem 1rem 1rem 1rem;
+}
