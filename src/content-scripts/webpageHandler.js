@@ -7,14 +7,16 @@ function startWebPageHandler() {
   const pageTitle = client.getPageTitle();
   const pageText = client.getPageAsText();
 
-  const prompt = {
-    title: `I want to provide you with content of a webpage.\nWebpage title: ${pageTitle}`,
-    content: pageText,
-    ending: "Summarize the provided webpage content that i gave you",
-    tokenLimit: 15000,
-  };
+  chrome.storage.sync.get("webpagePrompt", ({ webpagePrompt }) => {
+    const prompt = {
+      title: `I want to provide you with content of a webpage.\nWebpage title: ${pageTitle}`,
+      content: pageText,
+      ending: webpagePrompt,
+      tokenLimit: 10000,
+    };
 
-  requests.sendPromptToChatGPT(prompt);
+    requests.sendPromptToChatGPT(prompt);
+  });
 }
 
 chrome.runtime.onMessage.addListener((message, _, sendResponse) => {

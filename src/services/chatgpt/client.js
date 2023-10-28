@@ -6,6 +6,7 @@ export default class ChatGPTClient {
   constructor() {}
 
   async sendMessage({ title, content, ending, tokenLimit }) {
+    console.log(content);
     this.__tokenLimit = tokenLimit;
 
     if (content.length < tokenLimit)

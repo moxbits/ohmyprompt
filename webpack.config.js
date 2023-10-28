@@ -5,6 +5,7 @@ module.exports = {
   devtool: "source-map",
   entry: {
     chatGPTHandler: "./src/content-scripts/chatGPTHandler.js",
+    claudeHandler: "./src/content-scripts/claudeHandler.js",
     twitterHandler: "./src/content-scripts/twitterHandler.js",
     youtubeHandler: "./src/content-scripts/youtubeHandler.js",
     pageHandler: "./src/content-scripts/webpageHandler.js",

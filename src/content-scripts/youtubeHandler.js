@@ -8,15 +8,16 @@ async function startYouTubeHandler() {
   const videoTitle = document.title;
   const videoTranscript = await youtubeClient.getCurrentVideoTranscript();
 
-  const prompt = {
-    title: `I want to provide you content of a youtube video transcript.\nYouTube video title: ${videoTitle}`,
-    content: videoTranscript,
-    ending:
-      "Summarize the youtube video transcript that i provided for you and do not omit the important parts and details of it",
-    tokenLimit: 20000,
-  };
+  chrome.storage.sync.get("youtubePrompt", ({ youtubePrompt }) => {
+    const prompt = {
+      title: `I want to provide you content of a youtube video transcript.\nYouTube video title: ${videoTitle}`,
+      content: videoTranscript,
+      ending: youtubePrompt,
+      tokenLimit: 20000,
+    };
 
-  requests.sendPromptToChatGPT(prompt);
+    requests.sendPromptToChatGPT(prompt);
+  });
 }
 
 chrome.runtime.onMessage.addListener((message, _, sendResponse) => {

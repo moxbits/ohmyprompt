@@ -1,6 +1,25 @@
 import requests from "./utils/requests";
 
+import initializeStorage from "./utils/storage";
+
 const promptStack = [];
+
+initializeStorage();
+
+function openEngineLLM() {
+  chrome.storage.sync.get("engine", ({ engine }) => {
+    switch (engine) {
+      case "chatgpt":
+        chrome.tabs.create({ url: "https://chat.openai.com/?ohmychat=1" });
+        break;
+      case "claude":
+        chrome.tabs.create({ url: "https://claude.ai/chats?ohmychat=1" });
+        break;
+      default:
+        console.error("no such engine available!!!");
+    }
+  });
+}
 
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
   const { action, prompt } = request;
@@ -8,7 +27,7 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
   switch (action) {
     case requests.types.NEW_PROMPT:
       promptStack.push(prompt);
-      chrome.tabs.create({ url: "https://chat.openai.com/?ohmychat=1" });
+      openEngineLLM();
       break;
 
     case requests.types.GET_PROMPT:
@@ -34,7 +53,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
       };
 
       promptStack.push(prompt);
-      chrome.tabs.create({ url: "https://chat.openai.com/?ohmychat=1" });
+      openEngineLLM();
       break;
 
     default:

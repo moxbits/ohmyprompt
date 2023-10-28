@@ -13,7 +13,7 @@ export default class TwitterClient {
 
   tweetsToString(tweetObjects) {
     return tweetObjects
-      .map((tweet) => `${tweet.toString()}\n====\n`)
+      .map((tweet) => `${tweet.toString()}\n;@=#=#=#=@;\n`)
       .join("\n");
   }
 }

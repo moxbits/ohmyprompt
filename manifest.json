@@ -26,6 +26,10 @@
       "js": ["build/chatGPTHandler.js"]
     },
     {
+      "matches": ["https://claude.ai/chats?ohmychat=1"],
+      "js": ["build/claudeHandler.js"]
+    },
+    {
       "matches": [
         "https://twitter.com/*",
         "https://twitter.com/**/*",
