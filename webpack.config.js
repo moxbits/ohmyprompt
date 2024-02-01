@@ -10,6 +10,7 @@ module.exports = {
     youtubeHandler: "./src/content-scripts/youtubeHandler.js",
     pageHandler: "./src/content-scripts/webpageHandler.js",
     background: "./src/background.js",
+    settings: "./src/settings.js",
     popup: "./src/popup.js",
   },
   output: {

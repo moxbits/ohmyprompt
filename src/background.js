@@ -43,17 +43,18 @@ chrome.contextMenus.onClicked.addListener((info) => {
   switch (info.menuItemId) {
     case "summarizeContentItem":
       const content = info.selectionText;
-      const prompt = {
-        title:
-          "Here you will be prompted with content to summarize. wait for it in next prompts",
-        content,
-        ending:
-          "summarize all the contents that you have been given in this chat as much as you can",
-        tokenLimit: 20000,
-      };
+      chrome.storage.sync.get("selectionPrompt", ({ selectionPrompt }) => {
+        const prompt = {
+          title:
+            "Here you will be prompted with content to summarize. wait for it in next prompts",
+          content,
+          ending: selectionPrompt,
+          tokenLimit: 20000,
+        };
 
-      promptStack.push(prompt);
-      openEngineLLM();
+        promptStack.push(prompt);
+        openEngineLLM();
+      });
       break;
 
     default:

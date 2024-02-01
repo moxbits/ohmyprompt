@@ -2,43 +2,7 @@
 <html>
   <head>
     <title>OhMyChat Settings</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        color: white;
-        background-color: #444444;
-      }
-
-      .extension-settings-title {
-        text-align: center;
-      }
-
-      .container {
-        width: 50%;
-        margin: auto;
-      }
-
-      #settings-form {
-        width: 100%;
-      }
-
-      label {
-        display: block;
-        margin-top: 10px;
-        margin-bottom: 0.2rem;
-      }
-
-      button {
-        display: block;
-        width: 20%;
-        margin: 1rem auto;
-        padding: 0.5rem;
-      }
-
-      textarea {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="settings.css">
   </head>
   <body>
     <div class="container">
@@ -62,109 +26,13 @@
         <label for="webpage-prompt">Webpage Prompt:</label>
         <textarea id="webpage-prompt" name="webpagePrompt"></textarea>
 
+        <label for="selection-prompt">Selection Prompt:</label>
+        <textarea id="selection-prompt" name="selectionPrompt"></textarea>
+
         <button type="button" id="save-button">Save</button>
         <button type="button" id="reset-button">Reset</button>
       </form>
     </div>
-    <script>
-      const defaults = {
-        engine: "claude",
-        youtubePrompt:
-          "Summarize the youtube video transcript that i provided for you and do not omit the important parts and details of it",
-        twitterPrompt:
-          "Summarize all of the tweets that you have been provided each by each. each one should be summarized into one line and its link to its url should also be given. Also categorize all of the tweets and at the end of your report tell me which events and important things were happening in the whole list of tweets",
-        threadPrompt:
-          "Summarize the tweets that i provided you. explain the context of the thread and the insights that we can get out of it.",
-        webpagePrompt: "Summarize the provided webpage content that i gave you",
-      };
-
-      document.addEventListener("DOMContentLoaded", function () {
-        // Load saved settings on page load
-        chrome.storage.sync.get(
-          ["engine", "youtubePrompt", "twitterPrompt", "webpagePrompt"],
-          function (result) {
-            const settings = result;
-
-            document.getElementById("engine-select").value =
-              settings.engine || defaults.engine;
-
-            document.getElementById("youtube-prompt").value =
-              settings.youtubePrompt || defaults.youtubePrompt;
-
-            document.getElementById("twitter-prompt").value =
-              settings.twitterPrompt || defaults.twitterPrompt;
-
-            document.getElementById("thread-prompt").value =
-              settings.threadPrompt || defaults.threadPrompt;
-
-            document.getElementById("webpage-prompt").value =
-              settings.webpagePrompt || defaults.webpagePrompt;
-          },
-        );
-
-        // Save settings
-        document
-          .getElementById("save-button")
-          .addEventListener("click", function () {
-            const engine = document.getElementById("engine-select").value;
-
-            const youtubePrompt =
-              document.getElementById("youtube-prompt").value;
-
-            const twitterPrompt =
-              document.getElementById("twitter-prompt").value;
-
-            const threadPrompt = document.getElementById("thread-prompt").value;
-
-            const webpagePrompt =
-              document.getElementById("webpage-prompt").value;
-
-            chrome.storage.sync.set(
-              {
-                engine,
-                youtubePrompt,
-                twitterPrompt,
-                threadPrompt,
-                webpagePrompt,
-              },
-              function () {
-                console.log("Settings saved");
-              },
-            );
-          });
-
-        // Reset settings
-        document
-          .getElementById("reset-button")
-          .addEventListener("click", function () {
-            document.getElementById("engine-select").value = defaults.engine;
-
-            document.getElementById("youtube-prompt").value =
-              defaults.youtubePrompt;
-
-            document.getElementById("twitter-prompt").value =
-              defaults.twitterPrompt;
-
-            document.getElementById("thread-prompt").value =
-              defaults.threadPrompt;
-
-            document.getElementById("webpage-prompt").value =
-              defaults.webpagePrompt;
-
-            chrome.storage.sync.set(
-              {
-                engine: defaults.engine,
-                youtubePrompt: defaults.youtubePrompt,
-                twitterPrompt: defaults.twitterPrompt,
-                threadPrompt: defaults.threadPrompt,
-                webpagePrompt: defaults.webpagePrompt,
-              },
-              function () {
-                console.log("Settings reset");
-              },
-            );
-          });
-      });
-    </script>
+    <script src="../build/settings.js"></script>
   </body>
 </html>

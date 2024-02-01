@@ -1,18 +1,90 @@
-const settings = {
-  engine: localStorage.getItem("ai-engine"),
-  shouldSplit: localStorage.getItem("should-split-text"),
-  youtubePrompt: localStorage.getItem("youtube-prompt"),
-  twitterThreadPrompt: localStorage.getItem("twitter-thread-prompt"),
-  twitterListPrompt: localStorage.getItem("twitter-list-prompt"),
-  redditPostsPrompt: localStorage.getItem("reddit-posts-prompt"),
-  redditPostPrompt: localStorage.getItem("reddit-post-prompt"),
-  webPagePrompt: localStorage.getItem("web-page-prompt"),
-  selectionPrompt: localStorage.getItem("selection-prompt"),
-};
+import { defaults } from "./utils/storage";
 
-const saveBtn = document.getElementById("save-btn");
-const cancelBtn = document.getElementById("cancel-btn");
+document.addEventListener("DOMContentLoaded", function () {
+  // Load saved settings on page load
+  chrome.storage.sync.get(
+    ["engine", "youtubePrompt", "twitterPrompt", "webpagePrompt"],
+    function (result) {
+      const settings = result;
 
-saveBtn.addEventListener("click", () => {});
+      document.getElementById("engine-select").value =
+        settings.engine || defaults.engine;
 
-cancelBtn.addEventListener("click", () => {});
+      document.getElementById("youtube-prompt").value =
+        settings.youtubePrompt || defaults.youtubePrompt;
+
+      document.getElementById("twitter-prompt").value =
+        settings.twitterPrompt || defaults.twitterPrompt;
+
+      document.getElementById("thread-prompt").value =
+        settings.threadPrompt || defaults.threadPrompt;
+
+      document.getElementById("webpage-prompt").value =
+        settings.webpagePrompt || defaults.webpagePrompt;
+
+      document.getElementById("selection-prompt").value =
+        settings.selectionPrompt || defaults.selectionPrompt;
+    }
+  );
+
+  // Save settings
+  document.getElementById("save-button").addEventListener("click", function () {
+    const engine = document.getElementById("engine-select").value;
+
+    const youtubePrompt = document.getElementById("youtube-prompt").value;
+
+    const twitterPrompt = document.getElementById("twitter-prompt").value;
+
+    const threadPrompt = document.getElementById("thread-prompt").value;
+
+    const webpagePrompt = document.getElementById("webpage-prompt").value;
+
+    const selectionPrompt = document.getElementById("selection-prompt").value;
+
+    chrome.storage.sync.set(
+      {
+        engine,
+        youtubePrompt,
+        twitterPrompt,
+        threadPrompt,
+        webpagePrompt,
+        selectionPrompt,
+      },
+      function () {
+        console.log("Settings saved");
+      }
+    );
+  });
+
+  // Reset settings
+  document
+    .getElementById("reset-button")
+    .addEventListener("click", function () {
+      document.getElementById("engine-select").value = defaults.engine;
+
+      document.getElementById("youtube-prompt").value = defaults.youtubePrompt;
+
+      document.getElementById("twitter-prompt").value = defaults.twitterPrompt;
+
+      document.getElementById("thread-prompt").value = defaults.threadPrompt;
+
+      document.getElementById("webpage-prompt").value = defaults.webpagePrompt;
+
+      document.getElementById("selection-prompt").value =
+        defaults.selectionPrompt;
+
+      chrome.storage.sync.set(
+        {
+          engine: defaults.engine,
+          youtubePrompt: defaults.youtubePrompt,
+          twitterPrompt: defaults.twitterPrompt,
+          threadPrompt: defaults.threadPrompt,
+          webpagePrompt: defaults.webpagePrompt,
+          selectionPrompt: defaults.selectionPrompt,
+        },
+        function () {
+          console.log("Settings reset");
+        }
+      );
+    });
+});

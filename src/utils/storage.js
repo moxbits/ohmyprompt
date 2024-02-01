@@ -1,5 +1,5 @@
-const defaults = {
-  engine: "claude",
+export const defaults = {
+  engine: "chatgpt",
   youtubePrompt:
     "Summarize the youtube video transcript that i provided for you and do not omit the important parts and details of it",
   twitterPrompt:
@@ -7,6 +7,8 @@ const defaults = {
   threadPrompt:
     "Summarize the tweets that i provided you. explain the context of the thread and the insights that we can get out of it.",
   webpagePrompt: "Summarize the provided webpage content that i gave you",
+  selectionPrompt:
+    "Summarize all the contents that you have been given in this chat as much as you can",
 };
 
 export default function initializeStorage() {
@@ -17,8 +19,16 @@ export default function initializeStorage() {
       "twitterPrompt",
       "threadPrompt",
       "webpagePrompt",
+      "selectionPrompt",
     ],
-    ({ engine, youtubePrompt, twitterPrompt, threadPrompt, webpagePrompt }) => {
+    ({
+      engine,
+      youtubePrompt,
+      twitterPrompt,
+      threadPrompt,
+      webpagePrompt,
+      selectionPrompt,
+    }) => {
       if (chrome.runtime.lastError)
         return console.error(chrome.runtime.lastError);
 
@@ -37,10 +47,10 @@ export default function initializeStorage() {
               console.error(chrome.runtime.lastError);
             else
               console.log(
-                "Engine set to default value:",
-                defaults.youtubePrompt,
+                "Youtube video prompt set to default value:",
+                defaults.youtubePrompt
               );
-          },
+          }
         );
       }
 
@@ -52,10 +62,10 @@ export default function initializeStorage() {
               console.error(chrome.runtime.lastError);
             else
               console.log(
-                "Engine set to default value:",
-                defaults.twitterPrompt,
+                "Twitter tweets list prompt set to default value:",
+                defaults.twitterPrompt
               );
-          },
+          }
         );
       }
 
@@ -63,7 +73,10 @@ export default function initializeStorage() {
         chrome.storage.sync.set({ threadPrompt: defaults.threadPrompt }, () => {
           if (chrome.runtime.lastError) console.error(chrome.runtime.lastError);
           else
-            console.log("Engine set to default value:", defaults.threadPrompt);
+            console.log(
+              "Twitter threads prompt set to default value:",
+              defaults.threadPrompt
+            );
         });
       }
 
@@ -75,12 +88,27 @@ export default function initializeStorage() {
               console.error(chrome.runtime.lastError);
             else
               console.log(
-                "Engine set to default value:",
-                defaults.webpagePrompt,
+                "Webpages prompt set to default value:",
+                defaults.webpagePrompt
               );
-          },
+          }
         );
       }
-    },
+
+      if (!selectionPrompt) {
+        chrome.storage.sync.set(
+          { selectionPrompt: defaults.selectionPrompt },
+          () => {
+            if (chrome.runtime.lastError)
+              console.error(chrome.runtime.lastError);
+            else
+              console.log(
+                "Selected texts prompt set to default value:",
+                defaults.selectionPrompt
+              );
+          }
+        );
+      }
+    }
   );
 }

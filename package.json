@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "webpack -w"
+    "start": "webpack -w",
+    "build": "webpack"
   },
   "keywords": [
     "extension",

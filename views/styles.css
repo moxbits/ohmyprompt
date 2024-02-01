@@ -39,6 +39,20 @@ button:active {
   background-color: #fff3bc;
 }
 
+.settings_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  margin: 0.7rem;
+  cursor: pointer;
+}
+
+.settings_icon:hover,
+.settings_icon:active {
+  opacity: 0.6;
+}
+
 .badge {
   margin: 1rem;
   font-size: 1.2rem;
@@ -98,4 +112,8 @@ button:active {
 
 #tweets-amount {
   margin: 0.2rem 1rem 1rem 1rem;
+}
+
+.llm_engine_select {
+  margin: 0.5rem 0 1rem 0;
 }

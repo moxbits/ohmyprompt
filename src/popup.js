@@ -2,12 +2,35 @@ import requests from "./utils/requests";
 
 function initPopup() {
   getSiteType(showPopupBasedOnSiteType);
+  selectActiveEngine();
 }
 
 function getSiteType(callback) {
-  sendRequestToActiveTab(requests.types.GET_SITE_TYPE, null, (response) => {
-    if (response && response.type) callback(response.type);
-    else callback("about");
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    const currentTab = tabs[0];
+    const url = currentTab.url;
+    if (currentTab && url) {
+      if (url.includes("youtube.com")) callback("youtube");
+      else if (/https:\/\/twitter\.com\/[^\/]+\/status\/\d+/.test(url))
+        callback("twitter-thread");
+      else if (url.includes("twitter.com")) callback("twitter");
+      else callback("webpage");
+    } else callback("about");
+  });
+}
+
+function selectActiveEngine() {
+  chrome.storage.sync.get("engine", ({ engine }) => {
+    document.querySelectorAll(".llm_engine_select").forEach((item) => {
+      switch (engine) {
+        case "chatgpt":
+          item.selectedIndex = 0;
+          break;
+        case "claude":
+          item.selectedIndex = 1;
+          break;
+      }
+    });
   });
 }
 
@@ -41,7 +64,7 @@ function showPopupBasedOnSiteType(siteType) {
 function sendRequestToActiveTab(
   requestMessage,
   extras = null,
-  callback = null,
+  callback = null
 ) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(
@@ -50,7 +73,7 @@ function sendRequestToActiveTab(
         action: requestMessage,
         ...extras,
       },
-      callback,
+      callback
     );
   });
 }
@@ -60,6 +83,12 @@ function hideAllContainers() {
     if (!item.classList.contains("hidden")) item.classList.add("hidden");
   });
 }
+
+document.querySelectorAll(".settings_icon").forEach((item) => {
+  item.addEventListener("click", () => {
+    chrome.tabs.create({ url: "views/settings.html" });
+  });
+});
 
 document
   .querySelector("#youtube-transcript-btn")
@@ -82,6 +111,16 @@ document.querySelector("#twitter-tweets-btn").addEventListener("click", () => {
 
 document.querySelector("#twitter-thread-btn").addEventListener("click", () => {
   sendRequestToActiveTab(requests.types.GET_THREAD_TWEETS);
+});
+
+document.querySelectorAll(".llm_engine_select").forEach((element) => {
+  element.addEventListener("click", ({ target }) => {
+    const engine = target.value;
+    chrome.storage.sync.set({ engine }, () => {
+      if (chrome.runtime.lastError) console.error(chrome.runtime.lastError);
+      else console.log("Engine set to:", engine);
+    });
+  });
 });
 
 initPopup();
