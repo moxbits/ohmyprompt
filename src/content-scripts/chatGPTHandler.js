@@ -5,10 +5,19 @@ import ChatGPTClient from "../services/chatgpt/client";
 async function startChatGPTHandler() {
   chrome.runtime.sendMessage(
     { action: requests.types.GET_PROMPT },
-    async ({ prompt }) => {
-      const client = new ChatGPTClient();
-      await client.sendMessage(prompt);
-    },
+    ({ prompt }) => {
+      chrome.storage.sync.get("engine", async ({ engine }) => {
+        const client = new ChatGPTClient();
+        switch (engine) {
+          case "chatgpt":
+            await client.sendMessage(prompt);
+            break;
+          case "chatgpt-split":
+            await client.sendMessageWithSplit(prompt);
+            break;
+        }
+      });
+    }
   );
 }
 

@@ -7,37 +7,39 @@ export default class ChatGPTClient {
 
   async sendMessage({ title, content, ending, tokenLimit }) {
     console.log(content);
+    await this.__insertTextIntoChatGPTAndSubmit(
+      `${title}\n\n${content}\n\n${ending}`
+    );
+  }
+
+  async sendMessageWithSplit({ title, content, ending, tokenLimit }) {
+    console.log(content);
+
     this.__tokenLimit = tokenLimit;
 
-    if (content.length < tokenLimit)
-      await this.__insertTextIntoChatGPTAndSubmit(
-        `${title}\n\n${content}\n\n${ending}`,
-      );
-    else {
-      const prompts = this.__splitLargeTextIntoSmallerTexts(content);
+    const prompts = this.__splitLargeTextIntoSmallerTexts(content);
 
-      this.__waitModal = new WaitingModal(
-        "Inserting Prompts to ChatGPT",
-        prompts.length,
-      );
+    this.__waitModal = new WaitingModal(
+      "Inserting Prompts to ChatGPT",
+      prompts.length
+    );
 
-      await this.__waitModal.showLoadingPopup();
+    await this.__waitModal.showLoadingPopup();
 
-      await this.__insertTextIntoChatGPTAndSubmit(title);
-      await this.__waitForChatGPTCompleteResponse();
+    await this.__insertTextIntoChatGPTAndSubmit(title);
+    await this.__waitForChatGPTCompleteResponse();
 
-      await this.__sendLargeMessage(prompts);
+    await this.__sendLargeMessage(prompts);
 
-      await this.__insertTextIntoChatGPTAndSubmit(ending);
+    await this.__insertTextIntoChatGPTAndSubmit(ending);
 
-      this.__waitModal.closeLoadingPopup();
-    }
+    this.__waitModal.closeLoadingPopup();
   }
 
   async __sendLargeMessage(prompts) {
     for (const prompt of prompts) {
       await this.__insertTextIntoChatGPTAndSubmit(
-        `get this prompt chunk, process it, memorize and remember it completely and say 'GOT IT':\n${prompt}`,
+        `get this prompt chunk, process it, memorize and remember it completely and say 'GOT IT':\n${prompt}`
       );
       await this.__waitForChatGPTCompleteResponse();
       this.__waitModal.increaseIndexProgress();
@@ -72,15 +74,15 @@ export default class ChatGPTClient {
 
   async __waitForChatGPTCompleteResponse() {
     await waitUntil(
-      () => this.__getGeneratorBtnElement().innerText === "Stop generating",
+      () => this.__getGeneratorBtnElement().innerText === "Stop generating"
     );
     await waitUntil(
-      () => this.__getGeneratorBtnElement().innerText === "Regenerate",
+      () => this.__getGeneratorBtnElement().innerText === "Regenerate"
     );
   }
 
   async __waitForSubmitButtonToGetGreen() {
-    await waitUntil(() => this.__getSubmitBtnElement().style.backgroundColor);
+    await waitUntil(() => !this.__getSubmitBtnElement().disabled);
   }
 
   __getTextareaElement() {
@@ -88,12 +90,12 @@ export default class ChatGPTClient {
   }
 
   __getSubmitBtnElement() {
-    return [...document.querySelectorAll("button")].at(-2);
+    return document.querySelector("[data-testid=send-button]");
   }
 
   __getGeneratorBtnElement() {
     return document.querySelector(
-      "#__next > div.overflow-hidden.w-full.h-full.relative.flex.z-0 > div.relative.flex.h-full.max-w-full.flex-1.overflow-hidden > div > main > div > div.absolute.bottom-0.left-0.w-full.border-t.md\\:border-t-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.md\\:bg-vert-light-gradient.bg-white.dark\\:bg-gray-800.md\\:\\!bg-transparent.dark\\:md\\:bg-vert-dark-gradient.pt-2.md\\:pl-2.md\\:w-\\[calc\\(100\\%-\\.5rem\\)\\] > form > div > div:nth-child(1) > div > div.flex.items-center.md\\:items-end > div > button",
+      "#__next > div.overflow-hidden.w-full.h-full.relative.flex.z-0 > div.relative.flex.h-full.max-w-full.flex-1.overflow-hidden > div > main > div > div.absolute.bottom-0.left-0.w-full.border-t.md\\:border-t-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.md\\:bg-vert-light-gradient.bg-white.dark\\:bg-gray-800.md\\:\\!bg-transparent.dark\\:md\\:bg-vert-dark-gradient.pt-2.md\\:pl-2.md\\:w-\\[calc\\(100\\%-\\.5rem\\)\\] > form > div > div:nth-child(1) > div > div.flex.items-center.md\\:items-end > div > button"
     );
   }
 }

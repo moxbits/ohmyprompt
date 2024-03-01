@@ -26,8 +26,11 @@ function selectActiveEngine() {
         case "chatgpt":
           item.selectedIndex = 0;
           break;
-        case "claude":
+        case "chatgpt-split":
           item.selectedIndex = 1;
+          break;
+        case "claude":
+          item.selectedIndex = 2;
           break;
       }
     });

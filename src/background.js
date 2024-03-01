@@ -10,6 +10,7 @@ function openEngineLLM() {
   chrome.storage.sync.get("engine", ({ engine }) => {
     switch (engine) {
       case "chatgpt":
+      case "chatgpt-split":
         chrome.tabs.create({ url: "https://chat.openai.com/?ohmychat=1" });
         break;
       case "claude":
