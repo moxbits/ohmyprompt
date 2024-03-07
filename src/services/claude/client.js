@@ -2,7 +2,7 @@ import { delay } from "../../utils/time";
 
 export default class ClaudeClient {
   __selectors = {
-    textBox: "[data-placeholder='Message Claude or search past chats...']",
+    textBox: "[data-placeholder='What can I help you with?']",
     submitBtn: "[data-value='new chat'] > button",
   };
 
