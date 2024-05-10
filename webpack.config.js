@@ -1,20 +1,58 @@
 const path = require("path");
 
-module.exports = {
-  mode: "development",
-  devtool: "source-map",
+const CopyPlugin = require("copy-webpack-plugin");
+
+module.exports = ({ browser }) => ({
   entry: {
-    chatGPTHandler: "./src/content-scripts/chatGPTHandler.js",
-    claudeHandler: "./src/content-scripts/claudeHandler.js",
-    twitterHandler: "./src/content-scripts/twitterHandler.js",
-    youtubeHandler: "./src/content-scripts/youtubeHandler.js",
-    pageHandler: "./src/content-scripts/webpageHandler.js",
-    background: "./src/background.js",
-    settings: "./src/settings.js",
-    popup: "./src/popup.js",
+    [`${browser}/chatGPTHandler`]:
+      "./src/core/content-scripts/chatGPTHandler.js",
+    [`${browser}/claudeHandler`]: "./src/core/content-scripts/claudeHandler.js",
+    [`${browser}/twitterHandler`]:
+      "./src/core/content-scripts/twitterHandler.js",
+    [`${browser}/youtubeHandler`]:
+      "./src/core/content-scripts/youtubeHandler.js",
+    [`${browser}/webpageHandler`]:
+      "./src/core/content-scripts/webpageHandler.js",
+    [`${browser}/background`]: "./src/core/background.js",
+    [`${browser}/settings`]: "./src/core/settings.js",
+    [`${browser}/popup`]: "./src/core/popup.js",
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "dist"),
   },
-};
+  resolve: {
+    alias: {
+      "./browser-messages$": `../${browser}/messages`,
+      "./browser-storage$": `../${browser}/storage`,
+      "./browser-context$": `../${browser}/context`,
+      "./browser-tabs$": `../${browser}/tabs`,
+      "../browser-messages$": `../../${browser}/messages`,
+      "../browser-storage$": `../../${browser}/storage`,
+      "../browser-context$": `../../${browser}/context`,
+      "../browser-tabs$": `../../${browser}/tabs`,
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: `src/${browser}/manifest.json`,
+          to: `${browser}/manifest.json`,
+        },
+        { from: "views", to: `${browser}/views` },
+        { from: "assets", to: `${browser}/assets` },
+      ],
+    }),
+  ],
+});

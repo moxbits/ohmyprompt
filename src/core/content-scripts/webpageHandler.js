@@ -1,35 +1,34 @@
-import WebPageClient from "../services/webpage/client";
+import Messages from "../browser-messages";
+import Storage from "../browser-storage";
 
-import requests from "../utils/requests";
+import WebPageClient from "../services/webpage/client";
+import { types } from "../utils/types";
 
 function startWebPageHandler() {
   const client = new WebPageClient();
   const pageTitle = client.getPageTitle();
   const pageText = client.getPageAsText();
 
-  chrome.storage.sync.get("webpagePrompt", ({ webpagePrompt }) => {
+  Storage.get("webpagePrompt", (data) => {
     const prompt = {
       title: `I want to provide you with content of a webpage.\nWebpage title: ${pageTitle}`,
       content: pageText,
-      ending: webpagePrompt,
+      ending: data.webpagePrompt,
       tokenLimit: 10000,
     };
 
-    requests.sendPromptToChatGPT(prompt);
+    Messages.sendPromptToLLM(prompt);
   });
 }
 
-chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
+Messages.addListener((message, _, sendResponse) => {
   switch (message.action) {
-    case requests.types.GET_WEBPAGE_CONTENT:
+    case types.GET_WEBPAGE_CONTENT:
       startWebPageHandler();
       break;
 
-    case requests.types.GET_SITE_TYPE:
+    case types.GET_SITE_TYPE:
       sendResponse({ type: "webpage" });
       break;
-
-    default:
-      console.error("ohmychat webpage: no such option is valid");
   }
 });

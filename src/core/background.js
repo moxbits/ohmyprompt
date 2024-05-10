@@ -1,20 +1,23 @@
-import requests from "./utils/requests";
+import Messages from "./browser-messages";
+import Storage from "./browser-storage";
+import Context from "./browser-context";
+import Tabs from "./browser-tabs";
 
-import initializeStorage from "./utils/storage";
+import { types } from "./utils/types";
 
 const promptStack = [];
 
-initializeStorage();
+Storage.initializeStorage();
 
 function openEngineLLM() {
-  chrome.storage.sync.get("engine", ({ engine }) => {
-    switch (engine) {
+  Storage.get("engine", (data) => {
+    switch (data.engine) {
       case "chatgpt":
       case "chatgpt-split":
-        chrome.tabs.create({ url: "https://chat.openai.com/?ohmychat=1" });
+        Tabs.create({ url: "https://chatgpt.com/?ohmychat=1" });
         break;
       case "claude":
-        chrome.tabs.create({ url: "https://claude.ai/chats?ohmychat=1" });
+        Tabs.create({ url: "https://claude.ai/chats?ohmychat=1" });
         break;
       default:
         console.error("no such engine available!!!");
@@ -22,34 +25,32 @@ function openEngineLLM() {
   });
 }
 
-chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
+Messages.addListener((request, _, sendResponse) => {
   const { action, prompt } = request;
 
   switch (action) {
-    case requests.types.NEW_PROMPT:
+    case types.NEW_PROMPT:
       promptStack.push(prompt);
       openEngineLLM();
       break;
 
-    case requests.types.GET_PROMPT:
+    case types.GET_PROMPT:
       sendResponse({ prompt: promptStack.pop() });
       break;
-
-    default:
-      console.log("Not a valid option call");
   }
 });
 
-chrome.contextMenus.onClicked.addListener((info) => {
+Context.addClickListener((info) => {
   switch (info.menuItemId) {
     case "summarizeContentItem":
       const content = info.selectionText;
-      chrome.storage.sync.get("selectionPrompt", ({ selectionPrompt }) => {
+
+      Storage.get("selectionPrompt", (data) => {
         const prompt = {
           title:
             "Here you will be prompted with content to summarize. wait for it in next prompts",
           content,
-          ending: selectionPrompt,
+          ending: data.selectionPrompt,
           tokenLimit: 20000,
         };
 
@@ -63,7 +64,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
   }
 });
 
-chrome.contextMenus.create({
+Context.createItem({
   id: "summarizeContentItem",
   title: "Summarize selected content",
   contexts: ["selection"],

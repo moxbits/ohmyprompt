@@ -4,7 +4,7 @@ A browser extension to help you have LLMs summarize content
 
 ## Description
 
-The Extension Name is a Chrome-based extension that utilizes the power of Language Models (LLMs) like ChatGPT and Claude to summarize content from YouTube videos, Twitter tweets, and webpages. With this extension, users can quickly get concise summaries of lengthy content, making it easier to grasp the main points without spending excessive time on each piece of content.
+OhMyChat Extension is a browser extension for firefox and chromium based browsers that utilizes the power of Language Models (LLMs) like ChatGPT and Claude to summarize content from YouTube videos, Twitter tweets, and webpages. With this extension, users can quickly get concise summaries of lengthy content, making it easier to grasp the main points without spending excessive time on each piece of content.
 
 ## Features
 
@@ -22,6 +22,8 @@ The extension consists of multiple data extraction panels, each tailored to spec
 
 To install the extension from the source code, please follow these steps:
 
+### Building:
+
 1. Ensure that you have the necessary dependencies installed. You must have Node.js and npm (Node Package Manager) installed on your system.
 2. Clone the extension repository into your system. You can do this by either downloading the source code as a zip file or using Git to clone the repository.
 3. Open a terminal or command prompt and navigate to the directory where you have cloned the extension repository.
@@ -37,14 +39,45 @@ npm install
 npm run build
 ```
 
-6. Once the build process is finished, the extension is ready to be loaded in Chrome. To do that open your Chrome browser To load the extension from source code
-7. Open Google Chrome and type "chrome://extensions" in the address bar. Press Enter to go to the Extensions page.
-8. Enable the "Developer mode" option located in the top right corner of the Extensions page. This allows you to load extensions from source code.
-9. Click on the "Load unpacked" button, which appears after enabling Developer mode. A file browser window will open.
-10. Navigate to the folder where the extension's source code is located on your computer, and select the folder.
-11. Click the "Select Folder" button to load the extension.
+After the build process is complete, you need to add the extension to your browser:
+
+### Chrome:
+
+1. Once the build process is finished, the extension is ready to be loaded in Chrome. To do that open your Chrome browser To load the extension from source code
+2. Open Google Chrome and type "chrome://extensions" in the address bar. Press Enter to go to the Extensions page.
+3. Enable the "Developer mode" option located in the top right corner of the Extensions page. This allows you to load extensions from source code.
+4. Click on the "Load unpacked" button, which appears after enabling Developer mode. A file browser window will open.
+5. Navigate to the directory where the extension's source code is located on your computer, and select the `dist/chrome` directory in it.
+6. Click the "Select Folder" button to load the extension.
 
 Chrome will then load the extension from the source code and add it to the Extensions page. You should see the newly added extension listed among your installed extensions.
+
+### Firefox:
+
+1. Install web-ext globally by running the following command:
+
+```
+npm install --global web-ext
+```
+
+2. Create a Mozilla Developer Account and obtain a JWT issuer and secret token from the Mozilla Add-ons API key page.
+3. Navigate to the `dist/firefox` directory.
+4. Run the following command to sign the extension:
+
+```
+web-ext sign --api-key="JWT issuer" --api-secret="JWT secret"
+```
+
+This will create a web-ext-artifacts folder containing the signed XPI file.
+
+5. Open the Firefox browser and click on the Open menu (three horizontal lines) in the top right corner.
+6. Click on Add-ons from the drop-down menu.
+7. Click on the Gear icon in the top right corner of the Add-ons page.
+8. Select Install Add-on From File from the drop-down menu.
+9. Select the generated XPI file and click Open.
+10. Click Install Now to begin the installation process.
+
+Note: Make sure to replace "JWT issuer" and "JWT secret" with your actual token values from the Mozilla Add-ons API key page.
 
 ## Usage
 

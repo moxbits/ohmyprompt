@@ -1,36 +1,36 @@
+import Messages from "../browser-messages";
+import Storage from "../browser-storage";
+
 import YouTubeClient from "../services/youtube/client";
-import requests from "../utils/requests";
+import { types } from "../utils/types";
 
 async function startYouTubeHandler() {
-  const videoURL = "";
+  const videoURL = window.location.href;
   const youtubeClient = new YouTubeClient(videoURL);
 
   const videoTitle = document.title;
   const videoTranscript = await youtubeClient.getCurrentVideoTranscript();
 
-  chrome.storage.sync.get("youtubePrompt", ({ youtubePrompt }) => {
+  Storage.get("youtubePrompt", (data) => {
     const prompt = {
       title: `I want to provide you content of a youtube video transcript.\nYouTube video title: ${videoTitle}`,
       content: videoTranscript,
-      ending: youtubePrompt,
+      ending: data.youtubePrompt,
       tokenLimit: 20000,
     };
 
-    requests.sendPromptToChatGPT(prompt);
+    Messages.sendPromptToLLM(prompt);
   });
 }
 
-chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
+Messages.addListener((message, _, sendResponse) => {
   switch (message.action) {
-    case requests.types.GET_YOUTUBE_TRANSCRIPT:
+    case types.GET_YOUTUBE_TRANSCRIPT:
       startYouTubeHandler();
       break;
 
-    case requests.types.GET_SITE_TYPE:
+    case types.GET_SITE_TYPE:
       sendResponse({ type: "youtube" });
       break;
-
-    default:
-      console.error("ohmychat youtube: invalid request type");
   }
 });

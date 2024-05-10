@@ -5,7 +5,7 @@ import { waitUntil } from "../../utils/time";
 export default class ChatGPTClient {
   constructor() {}
 
-  async sendMessage({ title, content, ending, tokenLimit }) {
+  async sendMessage({ title, content, ending }) {
     console.log(content);
     await this.__insertTextIntoChatGPTAndSubmit(
       `${title}\n\n${content}\n\n${ending}`
