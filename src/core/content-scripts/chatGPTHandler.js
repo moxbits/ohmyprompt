@@ -20,5 +20,4 @@ async function startChatGPTHandler() {
   });
 }
 
-// window.onload = startChatGPTHandler;
 startChatGPTHandler();

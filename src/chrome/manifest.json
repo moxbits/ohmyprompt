@@ -26,11 +26,13 @@
         "https://chat.openai.com/?ohmychat=1",
         "https://chatgpt.com/?ohmychat=1"
       ],
-      "js": ["chatGPTHandler.js"]
+      "js": ["chatGPTHandler.js"],
+      "run_at": "document_idle"
     },
     {
       "matches": ["https://claude.ai/chats?ohmychat=1"],
-      "js": ["claudeHandler.js"]
+      "js": ["claudeHandler.js"],
+      "run_at": "document_idle"
     },
     {
       "matches": [
