@@ -6,7 +6,11 @@ module.exports = ({ browser }) => ({
   entry: {
     [`${browser}/chatGPTHandler`]:
       "./src/core/content-scripts/chatGPTHandler.js",
+    [`${browser}/geminiHandler`]: "./src/core/content-scripts/geminiHandler.js",
     [`${browser}/claudeHandler`]: "./src/core/content-scripts/claudeHandler.js",
+    [`${browser}/huggingChatHandler`]:
+      "./src/core/content-scripts/huggingChatHandler.js",
+    [`${browser}/poeHandler`]: "./src/core/content-scripts/poeHandler.js",
     [`${browser}/twitterHandler`]:
       "./src/core/content-scripts/twitterHandler.js",
     [`${browser}/youtubeHandler`]:

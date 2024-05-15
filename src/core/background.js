@@ -13,11 +13,19 @@ function openEngineLLM() {
   Storage.get("engine", (data) => {
     switch (data.engine) {
       case "chatgpt":
-      case "chatgpt-split":
         Tabs.create({ url: "https://chatgpt.com/?ohmychat=1" });
+        break;
+      case "gemini":
+        Tabs.create({ url: "https://gemini.google.com/app?ohmychat=1" });
         break;
       case "claude":
         Tabs.create({ url: "https://claude.ai/chats?ohmychat=1" });
+        break;
+      case "hugging-chat":
+        Tabs.create({ url: "https://huggingface.co/chat/?ohmychat=1" });
+        break;
+      case "poe":
+        Tabs.create({ url: "https://poe.com/?ohmychat=1" });
         break;
       default:
         console.error("no such engine available!!!");
@@ -51,7 +59,6 @@ Context.addClickListener((info) => {
             "Here you will be prompted with content to summarize. wait for it in next prompts",
           content,
           ending: data.selectionPrompt,
-          tokenLimit: 20000,
         };
 
         promptStack.push(prompt);

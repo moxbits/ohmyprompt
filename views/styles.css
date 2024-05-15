@@ -5,9 +5,16 @@
   font-family: sans-serif;
 }
 
-img {
+.panel-logo-image {
   width: 100px;
   height: auto;
+  margin-bottom: 1rem;
+}
+
+.loading-image {
+  width: 50px;
+  height: auto;
+  margin-bottom: 1.5rem;
 }
 
 button {
@@ -35,7 +42,9 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
+  width: 100%;
+  min-width: 300px;
+  min-height: 100%;
   background-color: #fff3bc;
 }
 
@@ -108,6 +117,20 @@ button:active {
 .container.twitter,
 .container.twitter-thread {
   background-color: #d2fdff;
+}
+
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.prompt-text {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  height: 150px;
 }
 
 #tweets-amount {

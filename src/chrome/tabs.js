@@ -10,16 +10,12 @@ export default class Tabs {
     });
   }
 
-  static sendMessageToCurrentTab(message, extras = null, callback = null) {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        {
-          action: message,
-          ...extras,
-        },
-        callback,
-      );
+  static async sendMessageToCurrentTab(message) {
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
     });
+
+    return chrome.tabs.sendMessage(tab.id, message);
   }
 }

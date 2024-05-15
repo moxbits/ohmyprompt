@@ -5,5 +5,5 @@ export const types = {
   GET_WEBPAGE_CONTENT: "getWebPageTextContent",
   GET_TWEETS: "getTweetsText",
   GET_TWEETS_WITH_COMMENTS: "getTweetsWithComments",
-  GET_SITE_TYPE: "getSiteType",
+  GET_POPUP_PROMPT: "getPopupPrompt",
 };

@@ -1,9 +1,9 @@
 import { delay } from "../../utils/time";
 
-export default class ClaudeClient {
+export default class HuggingChatClient {
   __selectors = {
-    textBox: "[data-placeholder='What can I help you with?']",
-    submitBtn: "[data-value='new chat'] > button",
+    textBox: "[enterkeyhint=send]",
+    submitBtn: "button.btn[type=submit]",
   };
 
   constructor() {}
@@ -19,7 +19,10 @@ export default class ClaudeClient {
   }
 
   __fillTextBox(text) {
-    document.querySelector(this.__selectors.textBox).innerText = text;
+    const textarea = document.querySelector(this.__selectors.textBox);
+    textarea.value = text;
+    const inputEvent = new Event("input", { bubbles: true });
+    textarea.dispatchEvent(inputEvent);
   }
 
   __submitPrompt() {

@@ -4,7 +4,7 @@ A browser extension to help you have LLMs summarize content
 
 ## Description
 
-OhMyChat Extension is a browser extension for firefox and chromium based browsers that utilizes the power of Language Models (LLMs) like ChatGPT and Claude to summarize content from YouTube videos, Twitter tweets, and webpages. With this extension, users can quickly get concise summaries of lengthy content, making it easier to grasp the main points without spending excessive time on each piece of content.
+OhMyChat Extension is a browser extension for firefox and chromium based browsers that utilizes the power of Language Models (LLMs) like (ChatGPT, Claude, Gemini and etc.) to summarize content from YouTube videos, Twitter tweets, and webpages. With this extension, users can quickly get concise summaries of lengthy content, making it easier to grasp the main points without spending excessive time on each piece of content.
 
 ## Features
 
@@ -129,7 +129,7 @@ Additionally, you can select text on a webpage, right-click on it, and choose th
 
 ## Limitations
 
-The extension relies on web applications associated with related Language Models (LLMs) such as ChatGPT and Claude webpages. However, it is essential to note that if these web applications are inaccessible or down, the extension will not function properly. Also APIs of those LLMs cannot be used.
+The extension relies on web applications associated with related Language Models (LLMs) such as ChatGPT webpages. However, it is essential to note that if these web applications are inaccessible or down, the extension will not function properly. Also APIs of those LLMs cannot be used.
 
 The extension is designed to extract textual data exclusively from sources that have been integrated into its support system. If a particular source is not supported, the extension's functionality will be limited to the textual data currently visible on the webpage screen.
 

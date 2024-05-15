@@ -10,14 +10,12 @@ export default class Tabs {
     });
   }
 
-  static sendMessageToCurrentTab(message, extras = {}, callback = () => {}) {
-    browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-      browser.tabs
-        .sendMessage(tabs[0].id, {
-          action: message,
-          ...extras,
-        })
-        .then(callback);
+  static async sendMessageToCurrentTab(message) {
+    const [tab] = await browser.tabs.query({
+      active: true,
+      currentWindow: true,
     });
+
+    return browser.tabs.sendMessage(tab.id, message);
   }
 }

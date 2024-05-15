@@ -1,9 +1,9 @@
 import { delay } from "../../utils/time";
 
-export default class ClaudeClient {
+export default class GeminiClient {
   __selectors = {
-    textBox: "[data-placeholder='What can I help you with?']",
-    submitBtn: "[data-value='new chat'] > button",
+    textBox: "rich-textarea > div.ql-editor.textarea > p",
+    submitBtn: ".send-button[aria-label='Send message']",
   };
 
   constructor() {}

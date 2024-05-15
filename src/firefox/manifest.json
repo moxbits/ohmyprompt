@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Oh My Chat",
-  "version": "1.0",
+  "version": "1.12",
   "description": "An extension to include GPT batteries into your browser!",
   "icons": {
     "16": "assets/icons/icon-16.png",
@@ -31,8 +31,23 @@
       "run_at": "document_idle"
     },
     {
+      "matches": ["https://gemini.google.com/app?ohmychat=1"],
+      "js": ["geminiHandler.js"],
+      "run_at": "document_idle"
+    },
+    {
       "matches": ["https://claude.ai/chats?ohmychat=1"],
       "js": ["claudeHandler.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://huggingface.co/chat/?ohmychat=1"],
+      "js": ["huggingChatHandler.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://poe.com/?ohmychat=1"],
+      "js": ["poeHandler.js"],
       "run_at": "document_idle"
     },
     {
