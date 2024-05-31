@@ -9,9 +9,9 @@ export default class Messages {
     chrome.runtime.onMessage.addListener(callback);
   }
 
-  static sendPromptToLLM(prompt) {
+  static sendPromptToBackground(prompt) {
     return this.send({
-      action: types.NEW_PROMPT,
+      action: types.SAVE_PROMPT,
       prompt,
     });
   }

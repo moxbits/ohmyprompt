@@ -45,6 +45,14 @@ module.exports = ({ browser }) => ({
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/,
+        type: "asset/source",
+      },
+      {
+        test: /\.html$/,
+        type: "asset/source",
+      },
     ],
   },
   plugins: [

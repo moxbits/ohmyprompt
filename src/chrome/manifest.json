@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Oh My Chat",
-  "version": "1.12",
+  "version": "1.14",
   "description": "An extension to include GPT batteries into your browser!",
-  "permissions": ["activeTab", "tabs", "contextMenus", "storage"],
+  "permissions": ["activeTab", "tabs", "contextMenus", "storage", "scripting"],
+  "host_permissions": ["http://*/*", "https://*/*"],
   "icons": {
     "16": "assets/icons/icon-16.png",
     "32": "assets/icons/icon-32.png",
@@ -64,7 +65,15 @@
     },
     {
       "matches": ["<all_urls>"],
-      "js": ["webpageHandler.js"]
+      "js": ["webpageHandler.js"],
+      "exclude_matches": [
+        "https://youtube.com/*",
+        "https://www.youtube.com/*",
+        "https://twitter.com/*",
+        "https://twitter.com/**/*",
+        "https://x.com/**/*",
+        "https://x.com/**/*"
+      ]
     }
   ],
   "background": {

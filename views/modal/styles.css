@@ -1,0 +1,60 @@
+#ohmychat-prompt-modal {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000de;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+#ohmychat-prompt-modal .control-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%;
+  padding: 1rem;
+}
+
+#ohmychat-prompt-modal .close-prompt-container {
+  padding: 0;
+  border: none;
+  color: #000000;
+  margin-bottom: 0;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+#ohmychat-prompt-modal .prompt-container,
+#ohmychat-prompt-modal .tweet-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  border-radius: 25px;
+  border: 2px solid #757575;
+  background-color: #cdcdcd;
+}
+
+#ohmychat-prompt-modal .prompt-text {
+  width: 80%;
+  margin-bottom: 1.5rem;
+  height: 150px;
+}
+
+#ohmychat-prompt-modal .llm_engine_select {
+  margin: 0.5rem 0 1rem 0;
+}
+
+@media screen and (max-width: 900px) {
+  #ohmychat-prompt-modal .prompt-container,
+  #ohmychat-prompt-modal .tweet-modal {
+    width: 90%;
+  }
+}

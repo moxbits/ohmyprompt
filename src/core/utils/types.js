@@ -1,9 +1,27 @@
+import Tabs from "../browser-tabs";
+
 export const types = {
-  NEW_PROMPT: "newPrompt",
+  GEN_PROMPT: "generatePrompt",
+  SAVE_PROMPT: "savePrompt",
   GET_PROMPT: "getPromptForLLM",
-  GET_YOUTUBE_TRANSCRIPT: "getYouTubeVideoTranscript",
-  GET_WEBPAGE_CONTENT: "getWebPageTextContent",
+  GET_PROMPT_WEBPAGE: "getPromptForLLMWebpage",
   GET_TWEETS: "getTweetsText",
-  GET_TWEETS_WITH_COMMENTS: "getTweetsWithComments",
-  GET_POPUP_PROMPT: "getPopupPrompt",
+  MODAL_LOADED: "modalLoaded",
 };
+
+export async function getSiteType() {
+  let url = "";
+
+  if (Tabs.isUsable()) {
+    const tab = await Tabs.getCurrentTab();
+    url = tab.url;
+  } else url = window.location.href;
+
+  if (url) {
+    if (url.includes("youtube.com")) return "youtube";
+    else if (/https:\/\/twitter\.com\/[^\/]+\/status\/\d+/.test(url) || /https:\/\/x\.com\/[^\/]+\/status\/\d+/.test(url))
+      return "twitter-thread";
+    else if (url.includes("twitter.com") || url.includes("x.com")) return "twitter";
+    else return "webpage";
+  } else return "about";
+}

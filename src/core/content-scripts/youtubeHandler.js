@@ -1,3 +1,5 @@
+import Modal from "../modal";
+
 import Messages from "../browser-messages";
 import Storage from "../browser-storage";
 
@@ -6,7 +8,7 @@ import { types } from "../utils/types";
 
 Messages.addListener(async (message) => {
   switch (message.action) {
-    case types.GET_YOUTUBE_TRANSCRIPT:
+    case types.GEN_PROMPT:
       const videoURL = window.location.href;
       const youtubeClient = new YouTubeClient(videoURL);
 
@@ -20,10 +22,12 @@ Messages.addListener(async (message) => {
           ending: data.youtubePrompt,
         };
 
+        const modal = new Modal();
+        modal.setPrompt(prompt);
+        modal.show();
+
         Messages.send({
-          action: types.GET_POPUP_PROMPT,
-          dataType: "youtube",
-          prompt,
+          action: types.MODAL_LOADED,
         });
       });
 

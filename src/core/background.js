@@ -34,22 +34,34 @@ function openEngineLLM() {
 }
 
 Messages.addListener((request, _, sendResponse) => {
-  const { action, prompt } = request;
-
-  switch (action) {
-    case types.NEW_PROMPT:
-      promptStack.push(prompt);
+  switch (request.action) {
+    case types.SAVE_PROMPT:
+      console.log("prompt recieved!!!");
+      promptStack.push(request.prompt);
       openEngineLLM();
       break;
 
     case types.GET_PROMPT:
+      console.log("prompt sent!!!");
       sendResponse({ prompt: promptStack.pop() });
       break;
   }
 });
 
+Tabs.onUpdate((tabId, changeInfo, tab) => {
+  if (changeInfo.status == "loading" && tab.url.includes("x.com")) {
+    Tabs.executeScript(tabId, {
+      file: "twitterHandler.js",
+    });
+  }
+});
+
 Context.addClickListener((info) => {
   switch (info.menuItemId) {
+    case "generatePromptItem":
+      Tabs.sendMessageToCurrentTab({ action: types.GEN_PROMPT });
+      break;
+
     case "summarizeContentItem":
       const content = info.selectionText;
 
@@ -75,4 +87,10 @@ Context.createItem({
   id: "summarizeContentItem",
   title: "Summarize selected content",
   contexts: ["selection"],
+});
+
+Context.createItem({
+  id: "generatePromptItem",
+  title: "Generate prompt",
+  contexts: ["page"],
 });

@@ -3,19 +3,36 @@ export default class Tabs {
     chrome.tabs.create({ url });
   }
 
-  static getCurrentTab(callback) {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const currentTab = tabs[0];
-      callback(currentTab);
-    });
-  }
-
-  static async sendMessageToCurrentTab(message) {
+  static async getCurrentTab() {
     const [tab] = await chrome.tabs.query({
       active: true,
       currentWindow: true,
     });
 
+    return tab;
+  }
+
+  static async sendMessageToCurrentTab(message) {
+    const tab = await this.getCurrentTab();
     return chrome.tabs.sendMessage(tab.id, message);
+  }
+
+  static sendMessage(tabId, message) {
+    return chrome.tabs.sendMessage(tabId, message);
+  }
+
+  static onUpdate(callback) {
+    chrome.tabs.onUpdated.addListener(callback);
+  }
+
+  static executeScript(tabId, data) {
+    chrome.scripting.executeScript({
+      target: { tabId, allFrames: true },
+      files: [data.file],
+    });
+  }
+
+  static isUsable() {
+    return !!chrome.tabs;
   }
 }
