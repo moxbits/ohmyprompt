@@ -21,7 +21,7 @@ export async function getSiteType() {
     if (url.includes("youtube.com")) return "youtube";
     else if (/https:\/\/twitter\.com\/[^\/]+\/status\/\d+/.test(url) || /https:\/\/x\.com\/[^\/]+\/status\/\d+/.test(url))
       return "twitter-thread";
-    else if (url.includes("twitter.com") || url.includes("x.com")) return "twitter";
+    else if (url.includes("twitter.com") || url.includes("//x.com") || url.includes("www.x.com")) return "twitter";
     else return "webpage";
   } else return "about";
 }
