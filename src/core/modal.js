@@ -48,8 +48,8 @@ export default class Modal {
     this.__addEvents();
   }
 
-  __generatePromptString(prompt) {
-    return `${prompt.title}\n\n\`\`\`${prompt.content}\`\`\`\n\n${prompt.ending}`;
+  __generatePromptString({ content, template }) {
+    return template.replace("{{%prompt-text%}}", content);
   }
 
   __addEvents() {

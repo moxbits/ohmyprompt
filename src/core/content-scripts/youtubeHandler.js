@@ -17,9 +17,8 @@ Messages.addListener(async (message) => {
 
       Storage.get("youtubePrompt", (data) => {
         const prompt = {
-          title: `I want to provide you content of a youtube video transcript.\nYouTube video title: ${videoTitle}`,
-          content: videoTranscript,
-          ending: data.youtubePrompt,
+          content: `Video title: ${videoTitle}\n${videoTranscript}`,
+          template: data.youtubePrompt,
         };
 
         const modal = new Modal();

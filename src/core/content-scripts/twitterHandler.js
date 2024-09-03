@@ -15,10 +15,8 @@ async function extractTweetsAndDisplayPrompt(amount) {
 
   Storage.get("twitterPrompt", (data) => {
     const prompt = {
-      title:
-        "I want to provide you content of a series of tweets texts. Each tweet is seperated using `;@=#=#=#=@;`. Here are the following tweets:",
       content: client.tweetsToString(tweets),
-      ending: data.twitterPrompt,
+      template: data.twitterPrompt,
     };
 
     modal.setPrompt(prompt);
@@ -66,10 +64,8 @@ Messages.addListener(async (message) => {
 
           Storage.get("threadPrompt", (data) => {
             const prompt = {
-              title:
-                "I want to provide you content of a thread of tweets. Each tweet is seperated using `;@=#=#=#=@;`. Here are the following tweets:",
               content: client.tweetsToString(threadTweets),
-              ending: data.threadPrompt,
+              template: data.threadPrompt,
             };
 
             const modal = new Modal();

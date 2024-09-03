@@ -67,10 +67,8 @@ Context.addClickListener((info) => {
 
       Storage.get("selectionPrompt", (data) => {
         const prompt = {
-          title:
-            "Here you will be prompted with content to summarize. wait for it in next prompts",
           content,
-          ending: data.selectionPrompt,
+          template: data.selectionPrompt,
         };
 
         promptStack.push(prompt);

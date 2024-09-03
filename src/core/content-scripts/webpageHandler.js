@@ -15,9 +15,8 @@ Messages.addListener((message) => {
 
       Storage.get("webpagePrompt", (data) => {
         const prompt = {
-          title: `I want to provide you with content of a webpage.\nWebpage title: ${pageTitle}`,
-          content: pageText,
-          ending: data.webpagePrompt,
+          content: `Page title: ${pageTitle}\n${pageText}`,
+          template: data.webpagePrompt,
         };
 
         const modal = new Modal();
