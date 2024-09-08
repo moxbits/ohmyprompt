@@ -79,25 +79,26 @@ export default class Modal {
 
   __selectActiveEngine() {
     Storage.get("engine", (data) => {
-      const llmSelect = document.querySelector(
-        ".llm_engine_select",
-      );
+      const llmSelect = document.querySelector(".llm_engine_select");
 
       switch (data.engine) {
         case "chatgpt":
           llmSelect.selectedIndex = 0;
           break;
-        case "gemini":
+        case "claude":
           llmSelect.selectedIndex = 1;
           break;
-        case "claude":
+        case "duck-ai":
           llmSelect.selectedIndex = 2;
           break;
         case "hugging-chat":
           llmSelect.selectedIndex = 3;
           break;
-        case "poe":
+        case "gemini":
           llmSelect.selectedIndex = 4;
+          break;
+        case "poe":
+          llmSelect.selectedIndex = 5;
           break;
       }
     });
@@ -108,7 +109,10 @@ export default class Modal {
   }
 
   __processPrompt() {
-    Messages.sendPromptToBackground(this.getPrompt());
+    Storage.get("shouldCopyToClipboard", (data) => {
+      if (data.shouldCopyToClipboard) this.__copyToClipboard();
+      Messages.sendPromptToBackground(this.getPrompt());
+    });
   }
 
   close() {

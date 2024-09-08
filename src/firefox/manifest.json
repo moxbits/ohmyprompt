@@ -43,6 +43,11 @@
       "run_at": "document_idle"
     },
     {
+      "matches": ["https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmychat=1"],
+      "js": ["duckAIHandler.js"],
+      "run_at": "document_idle"
+    },
+    {
       "matches": ["https://huggingface.co/chat/?ohmychat=1"],
       "js": ["huggingChatHandler.js"],
       "run_at": "document_idle"

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "threadPrompt",
       "webpagePrompt",
       "selectionPrompt",
+      "shouldCopyToClipboard",
     ],
     ({
       engine,
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       threadPrompt,
       webpagePrompt,
       selectionPrompt,
+      shouldCopyToClipboard,
     }) => {
       document.getElementById("engine-select").value = engine;
       document.getElementById("youtube-prompt").value = youtubePrompt;
@@ -25,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("thread-prompt").value = threadPrompt;
       document.getElementById("webpage-prompt").value = webpagePrompt;
       document.getElementById("selection-prompt").value = selectionPrompt;
+      document.getElementById("copy-clipboard-check").checked =
+        shouldCopyToClipboard;
     },
   );
 
@@ -36,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const threadPrompt = document.getElementById("thread-prompt").value;
     const webpagePrompt = document.getElementById("webpage-prompt").value;
     const selectionPrompt = document.getElementById("selection-prompt").value;
+    const shouldCopyToClipboard = document.getElementById(
+      "copy-clipboard-check",
+    ).checked;
 
     Storage.set({
       engine,
@@ -44,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       threadPrompt,
       webpagePrompt,
       selectionPrompt,
+      shouldCopyToClipboard,
     });
   });
 
@@ -68,6 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("selection-prompt").value =
         Storage.defaults.selectionPrompt;
 
+      document.getElementById("copy-clipboard-check").checked =
+        Storage.defaults.shouldCopyToClipboard;
+
       Storage.set({
         engine: Storage.defaults.engine,
         youtubePrompt: Storage.defaults.youtubePrompt,
@@ -75,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         threadPrompt: Storage.defaults.threadPrompt,
         webpagePrompt: Storage.defaults.webpagePrompt,
         selectionPrompt: Storage.defaults.selectionPrompt,
+        shouldCopyToClipboard: Storage.defaults.shouldCopyToClipboard,
       });
     });
 });

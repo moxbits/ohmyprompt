@@ -10,6 +10,7 @@ export default class BaseStorage {
     webpagePrompt: "Here content of a webpage is provided:\n{{%prompt-text%}}\nSummarize the provided webpage content.",
     selectionPrompt:
       "Here textual content are provided:\n{{%prompt-text%}}\nSummarize all the provided content in this chat as much as you can and highlight the important details",
+    shouldCopyToClipboard: false,
   };
 
   static initializeStorage() {
@@ -21,6 +22,7 @@ export default class BaseStorage {
         "threadPrompt",
         "webpagePrompt",
         "selectionPrompt",
+        "shouldCopyToClipboard"
       ],
       (data = {}) => {
         if (!data.engine) this.set({ engine: this.defaults.engine });
@@ -39,6 +41,9 @@ export default class BaseStorage {
 
         if (!data.selectionPrompt)
           this.set({ selectionPrompt: this.defaults.selectionPrompt });
+
+        if (!data.shouldCopyToClipboard)
+          this.set({ shouldCopyToClipboard: this.defaults.shouldCopyToClipboard });
       },
     );
   }

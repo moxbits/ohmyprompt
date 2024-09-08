@@ -21,6 +21,11 @@ function openEngineLLM() {
       case "claude":
         Tabs.create({ url: "https://claude.ai/chats?ohmychat=1" });
         break;
+      case "duck-ai":
+        Tabs.create({
+          url: "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmychat=1",
+        });
+        break;
       case "hugging-chat":
         Tabs.create({ url: "https://huggingface.co/chat/?ohmychat=1" });
         break;
@@ -36,13 +41,11 @@ function openEngineLLM() {
 Messages.addListener((request, _, sendResponse) => {
   switch (request.action) {
     case types.SAVE_PROMPT:
-      console.log("prompt recieved!!!");
       promptStack.push(request.prompt);
       openEngineLLM();
       break;
 
     case types.GET_PROMPT:
-      console.log("prompt sent!!!");
       sendResponse({ prompt: promptStack.pop() });
       break;
   }

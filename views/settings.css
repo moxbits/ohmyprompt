@@ -44,6 +44,18 @@ textarea {
   width: 100%;
 }
 
+.copy-clipboard-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.3rem;
+}
+
+.copy-clipboard-container label {
+  margin: 0;
+}
+
 #save-button {
   margin-top: 2rem;
 }
