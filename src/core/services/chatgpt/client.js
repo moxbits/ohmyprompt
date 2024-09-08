@@ -24,12 +24,12 @@ export default class ChatGPTClient {
   }
 
   __getTextareaElement() {
-    return document.querySelector("textarea");
+    return document.querySelector("textarea#prompt-textarea");
   }
 
   __getSubmitBtnElement() {
     return document.querySelector(
-      "form > div > div.flex.w-full.items-center > div > div > button",
+      "button[data-testid=send-button]",
     );
   }
 }

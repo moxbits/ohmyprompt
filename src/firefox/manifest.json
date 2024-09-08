@@ -1,7 +1,12 @@
 {
   "manifest_version": 3,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "extension@ohmychat.com"
+    }
+  },
   "name": "Oh My Chat",
-  "version": "1.14",
+  "version": "1.15",
   "description": "An extension to include GPT batteries into your browser!",
   "host_permissions": ["*://*/*", "*://x.com/*", "*://x.com/**/*"],
   "permissions": ["activeTab", "tabs", "contextMenus", "storage", "scripting"],

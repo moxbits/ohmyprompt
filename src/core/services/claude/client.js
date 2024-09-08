@@ -2,8 +2,8 @@ import { delay } from "../../utils/time";
 
 export default class ClaudeClient {
   __selectors = {
-    textBox: "[data-placeholder='What can I help you with?']",
-    submitBtn: "[data-value='new chat'] > button",
+    textBox: "div[enterkeyhint=enter] p",
+    submitBtn: "button[aria-label=\"Send Message\"]",
   };
 
   constructor() {}
