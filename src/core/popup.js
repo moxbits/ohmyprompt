@@ -23,9 +23,6 @@ function showPopupBasedOnSiteType(siteType) {
         .querySelector(".container.twitter-thread")
         .classList.remove("hidden");
       break;
-    case "webpage":
-      document.querySelector(".container.normal").classList.remove("hidden");
-      break;
     default:
       document.querySelector(".container.about").classList.remove("hidden");
   }
@@ -39,13 +36,13 @@ function hideAllContainers() {
 
 document.querySelectorAll(".settings_icon").forEach((item) => {
   item.addEventListener("click", () => {
-    Tabs.create({ url: "views/settings.html" });
+    Tabs.create({ url: "/views/settings.html" });
   });
 });
 
 document
   .querySelectorAll(
-    "#webpage-content-btn, #youtube-transcript-btn, #twitter-thread-btn",
+    "#youtube-transcript-btn, #twitter-thread-btn",
   )
   .forEach((btn) =>
     btn.addEventListener("click", ({ target }) => {

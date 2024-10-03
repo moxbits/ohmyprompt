@@ -24,7 +24,7 @@ export default class ChatGPTClient {
   }
 
   __getTextareaElement() {
-    return document.querySelector("textarea#prompt-textarea");
+    return document.querySelector("#prompt-textarea p");
   }
 
   __getSubmitBtnElement() {

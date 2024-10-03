@@ -17,8 +17,6 @@ module.exports = ({ browser }) => ({
       "./src/core/content-scripts/twitterHandler.js",
     [`${browser}/youtubeHandler`]:
       "./src/core/content-scripts/youtubeHandler.js",
-    [`${browser}/webpageHandler`]:
-      "./src/core/content-scripts/webpageHandler.js",
     [`${browser}/background`]: "./src/core/background.js",
     [`${browser}/settings`]: "./src/core/settings.js",
     [`${browser}/popup`]: "./src/core/popup.js",

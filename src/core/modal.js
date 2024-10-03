@@ -109,10 +109,7 @@ export default class Modal {
   }
 
   __processPrompt() {
-    Storage.get("shouldCopyToClipboard", (data) => {
-      if (data.shouldCopyToClipboard) this.__copyToClipboard();
-      Messages.sendPromptToBackground(this.getPrompt());
-    });
+    Messages.sendPromptToBackground(this.getPrompt());
   }
 
   close() {

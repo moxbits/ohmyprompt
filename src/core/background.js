@@ -2,12 +2,15 @@ import Messages from "./browser-messages";
 import Storage from "./browser-storage";
 import Context from "./browser-context";
 import Tabs from "./browser-tabs";
+import bypassCSP from "./browser-csp-bypass";
 
 import { types } from "./utils/types";
 
 const promptStack = [];
 
 Storage.initializeStorage();
+
+bypassCSP();
 
 function openEngineLLM() {
   Storage.get("engine", (data) => {

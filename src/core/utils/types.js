@@ -4,7 +4,6 @@ export const types = {
   GEN_PROMPT: "generatePrompt",
   SAVE_PROMPT: "savePrompt",
   GET_PROMPT: "getPromptForLLM",
-  GET_PROMPT_WEBPAGE: "getPromptForLLMWebpage",
   GET_TWEETS: "getTweetsText",
   MODAL_LOADED: "modalLoaded",
 };
@@ -22,6 +21,6 @@ export async function getSiteType() {
     else if (/https:\/\/twitter\.com\/[^\/]+\/status\/\d+/.test(url) || /https:\/\/x\.com\/[^\/]+\/status\/\d+/.test(url))
       return "twitter-thread";
     else if (url.includes("twitter.com") || url.includes("//x.com") || url.includes("www.x.com")) return "twitter";
-    else return "webpage";
+    else return "about";
   } else return "about";
 }

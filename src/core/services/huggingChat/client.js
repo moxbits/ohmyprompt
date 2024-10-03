@@ -2,7 +2,7 @@ import { delay } from "../../utils/time";
 
 export default class HuggingChatClient {
   __selectors = {
-    textBox: "[enterkeyhint=send]",
+    textBox: "textarea",
     submitBtn: "button.btn[type=submit]",
   };
 
