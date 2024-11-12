@@ -1,9 +1,9 @@
-import Messages from "../browser-messages";
+import Messages from "../../browser-messages";
 
-import PoeClient from "../services/poe/client";
+import PoeClient from "./client";
 
-import { types } from "../utils/types";
-import { delay } from "../utils/time";
+import { types } from "../../utils/types";
+import { delay } from "../../utils/time";
 
 async function startPoeHandler() {
   const { prompt } = await Messages.send({ action: types.GET_PROMPT });

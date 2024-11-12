@@ -1,6 +1,6 @@
 {
   "name": "ohmychat_extension",
-  "version": "1.12",
+  "version": "1.17",
   "description": "a chrome extension for using your browser with GPT batteries included!",
   "main": "dist/index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "raw-loader": "^4.0.2",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
-    "web-ext": "^8.2.0",
+    "web-ext": "^8.3.0",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"

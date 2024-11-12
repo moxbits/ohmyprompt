@@ -9,7 +9,7 @@ export default class ChatGPTClient {
 
   async __insertTextIntoChatGPTAndSubmit(text) {
     const textarea = this.__getTextareaElement();
-    textarea.value = text;
+    textarea.innerText = text;
 
     const inputEvent = new Event("input", { bubbles: true });
     textarea.dispatchEvent(inputEvent);

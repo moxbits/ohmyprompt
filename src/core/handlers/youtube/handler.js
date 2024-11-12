@@ -1,10 +1,11 @@
-import Modal from "../modal";
+import Modal from "../../utils/modal";
 
-import Messages from "../browser-messages";
-import Storage from "../browser-storage";
+import Messages from "../../browser-messages";
+import Storage from "../../browser-storage";
 
-import YouTubeClient from "../services/youtube/client";
-import { types } from "../utils/types";
+import YouTubeClient from "./client";
+
+import { types } from "../../utils/types";
 
 Messages.addListener(async (message) => {
   switch (message.action) {

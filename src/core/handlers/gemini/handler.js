@@ -1,9 +1,9 @@
-import Messages from "../browser-messages";
+import Messages from "../../browser-messages";
 
-import GeminiClient from "../services/gemini/client";
+import GeminiClient from "./client";
 
-import { types } from "../utils/types";
-import { delay } from "../utils/time";
+import { types } from "../../utils/types";
+import { delay } from "../../utils/time";
 
 async function startGeminiHandler() {
   const { prompt } = await Messages.send({ action: types.GET_PROMPT });

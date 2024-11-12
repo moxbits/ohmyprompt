@@ -5,18 +5,17 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = ({ browser }) => ({
   entry: {
     [`${browser}/chatGPTHandler`]:
-      "./src/core/content-scripts/chatGPTHandler.js",
-    [`${browser}/geminiHandler`]: "./src/core/content-scripts/geminiHandler.js",
-    [`${browser}/claudeHandler`]: "./src/core/content-scripts/claudeHandler.js",
-    [`${browser}/duckAIHandler`]:
-      "./src/core/content-scripts/duckAIHandler.js",
+      "./src/core/handlers/chatgpt/handler.js",
+    [`${browser}/geminiHandler`]: "./src/core/handlers/gemini/handler.js",
+    [`${browser}/claudeHandler`]: "./src/core/handlers/claude/handler.js",
+    [`${browser}/duckAIHandler`]: "./src/core/handlers/duckAI/handler.js",
     [`${browser}/huggingChatHandler`]:
-      "./src/core/content-scripts/huggingChatHandler.js",
-    [`${browser}/poeHandler`]: "./src/core/content-scripts/poeHandler.js",
+      "./src/core/handlers/huggingChat/handler.js",
+    [`${browser}/poeHandler`]: "./src/core/handlers/poe/handler.js",
     [`${browser}/twitterHandler`]:
-      "./src/core/content-scripts/twitterHandler.js",
+      "./src/core/handlers/twitter/handler.js",
     [`${browser}/youtubeHandler`]:
-      "./src/core/content-scripts/youtubeHandler.js",
+      "./src/core/handlers/youtube/handler.js",
     [`${browser}/background`]: "./src/core/background.js",
     [`${browser}/settings`]: "./src/core/settings.js",
     [`${browser}/popup`]: "./src/core/popup.js",
@@ -31,10 +30,15 @@ module.exports = ({ browser }) => ({
       "./browser-storage$": `../${browser}/storage`,
       "./browser-context$": `../${browser}/context`,
       "./browser-tabs$": `../${browser}/tabs`,
+      "./browser-csp-bypass$": `../${browser}/csp-bypass`,
       "../browser-messages$": `../../${browser}/messages`,
       "../browser-storage$": `../../${browser}/storage`,
       "../browser-context$": `../../${browser}/context`,
       "../browser-tabs$": `../../${browser}/tabs`,
+      "../../browser-messages$": `../../../${browser}/messages`,
+      "../../browser-storage$": `../../../${browser}/storage`,
+      "../../browser-context$": `../../../${browser}/context`,
+      "../../browser-tabs$": `../../../${browser}/tabs`,
     },
   },
   module: {

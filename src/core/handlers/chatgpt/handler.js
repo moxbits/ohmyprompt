@@ -1,7 +1,8 @@
-import Messages from "../browser-messages";
+import Messages from "../../browser-messages";
 
-import ChatGPTClient from "../services/chatgpt/client";
-import { types } from "../utils/types";
+import ChatGPTClient from "./client";
+
+import { types } from "../../utils/types";
 
 async function startChatGPTHandler() {
   const { prompt } = await Messages.send({ action: types.GET_PROMPT });

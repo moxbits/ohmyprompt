@@ -1,9 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "Oh My Chat",
-  "version": "1.16",
+  "name": "OhMyChat",
+  "version": "1.17",
   "description": "An extension to include GPT batteries into your browser!",
-  "permissions": ["activeTab", "tabs", "contextMenus", "storage", "scripting"],
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "activeTab",
+    "tabs",
+    "contextMenus",
+    "storage",
+    "scripting"
+  ],
   "host_permissions": ["http://*/*", "https://*/*"],
   "icons": {
     "16": "assets/icons/icon-16.png",
@@ -41,7 +49,9 @@
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmychat=1"],
+      "matches": [
+        "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmychat=1"
+      ],
       "js": ["duckAIHandler.js"],
       "run_at": "document_idle"
     },

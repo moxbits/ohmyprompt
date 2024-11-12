@@ -1,12 +1,12 @@
-import Messages from "../browser-messages";
-import Storage from "../browser-storage";
-import Tabs from "../browser-tabs";
+import Messages from "../../browser-messages";
+import Storage from "../../browser-storage";
 
-import Modal from "../modal";
-import tweetsModalContent from "../../../views/modal/tweets-modal.html?raw";
+import Modal from "../../utils/modal";
+import tweetsModalContent from "../../../../views/modal/tweets-modal.html?raw";
 
-import TwitterClient from "../services/twitter/client";
-import { types, getSiteType } from "../utils/types";
+import TwitterClient from "./client";
+
+import { types, getSiteType } from "../../utils/types";
 
 async function extractTweetsAndDisplayPrompt(amount) {
   const client = new TwitterClient();
@@ -82,5 +82,3 @@ Messages.addListener(async (message) => {
     action: types.MODAL_LOADED,
   });
 });
-
-console.log("i got there!!!");

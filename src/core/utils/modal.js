@@ -46,6 +46,7 @@ export default class Modal {
     }
 
     this.__addEvents();
+    Messages.send({ action: types.DISABLE_CSP_BYPASS })
   }
 
   __generatePromptString({ content, template }) {

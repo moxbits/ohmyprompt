@@ -41,26 +41,40 @@ document.querySelectorAll(".settings_icon").forEach((item) => {
 });
 
 document
-  .querySelectorAll(
-    "#youtube-transcript-btn, #twitter-thread-btn",
-  )
-  .forEach((btn) =>
-    btn.addEventListener("click", ({ target }) => {
-      target.classList.add("hidden");
+  .querySelector("#youtube-transcript-btn")
+  .addEventListener("click", ({ target }) => {
+    target.classList.add("hidden");
 
-      document.querySelectorAll(".container .loading-image").forEach((img) => {
-        if (img.classList.contains("hidden")) img.classList.remove("hidden");
-      });
+    document.querySelectorAll(".container .loading-image").forEach((img) => {
+      if (img.classList.contains("hidden")) img.classList.remove("hidden");
+    });
 
-      Tabs.sendMessageToCurrentTab({
-        action: types.GEN_PROMPT,
-      });
-    }),
-  );
+    Tabs.sendMessageToCurrentTab({
+      action: types.GEN_PROMPT,
+    });
+  });
+
+document
+  .querySelector("#twitter-thread-btn")
+  .addEventListener("click", async ({ target }) => {
+    Messages.send({ action: types.BYPASS_CSP });
+
+    target.classList.add("hidden");
+
+    document.querySelectorAll(".container .loading-image").forEach((img) => {
+      if (img.classList.contains("hidden")) img.classList.remove("hidden");
+    });
+
+    Tabs.sendMessageToCurrentTab({
+      action: types.GEN_PROMPT,
+    });
+  });
 
 document
   .querySelector("#twitter-tweets-btn")
-  .addEventListener("click", ({ target }) => {
+  .addEventListener("click", async ({ target }) => {
+    Messages.send({ action: types.BYPASS_CSP });
+
     target.classList.add("hidden");
     document
       .querySelector(".container.twitter .loading-image")

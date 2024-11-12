@@ -2,15 +2,14 @@ import Messages from "./browser-messages";
 import Storage from "./browser-storage";
 import Context from "./browser-context";
 import Tabs from "./browser-tabs";
-import bypassCSP from "./browser-csp-bypass";
+
+import { bypassCSP, disableCSPBypass } from "./browser-csp-bypass";
 
 import { types } from "./utils/types";
 
 const promptStack = [];
 
 Storage.initializeStorage();
-
-bypassCSP();
 
 function openEngineLLM() {
   Storage.get("engine", (data) => {
@@ -51,14 +50,14 @@ Messages.addListener((request, _, sendResponse) => {
     case types.GET_PROMPT:
       sendResponse({ prompt: promptStack.pop() });
       break;
-  }
-});
 
-Tabs.onUpdate((tabId, changeInfo, tab) => {
-  if (changeInfo.status == "loading" && tab.url.includes("x.com")) {
-    Tabs.executeScript(tabId, {
-      file: "twitterHandler.js",
-    });
+    case types.BYPASS_CSP:
+      bypassCSP();
+      break;
+
+    case types.DISABLE_CSP_BYPASS:
+      disableCSPBypass();
+      break;
   }
 });
 

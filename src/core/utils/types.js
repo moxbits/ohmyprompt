@@ -6,6 +6,8 @@ export const types = {
   GET_PROMPT: "getPromptForLLM",
   GET_TWEETS: "getTweetsText",
   MODAL_LOADED: "modalLoaded",
+  BYPASS_CSP: "bypassCSP",
+  DISABLE_CSP_BYPASS: "disableBypassCSP",
 };
 
 export async function getSiteType() {
@@ -18,9 +20,17 @@ export async function getSiteType() {
 
   if (url) {
     if (url.includes("youtube.com")) return "youtube";
-    else if (/https:\/\/twitter\.com\/[^\/]+\/status\/\d+/.test(url) || /https:\/\/x\.com\/[^\/]+\/status\/\d+/.test(url))
+    else if (
+      /https:\/\/twitter\.com\/[^\/]+\/status\/\d+/.test(url) ||
+      /https:\/\/x\.com\/[^\/]+\/status\/\d+/.test(url)
+    )
       return "twitter-thread";
-    else if (url.includes("twitter.com") || url.includes("//x.com") || url.includes("www.x.com")) return "twitter";
+    else if (
+      url.includes("twitter.com") ||
+      url.includes("//x.com") ||
+      url.includes("www.x.com")
+    )
+      return "twitter";
     else return "about";
   } else return "about";
 }

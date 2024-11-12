@@ -25,10 +25,6 @@ export default class Tabs {
     browser.tabs.onUpdated.addListener(callback);
   }
 
-  static async executeScript(tabId, data) {
-    browser.tabs.executeScript(tabId, data);
-  }
-
   static isUsable() {
     return !!browser.tabs;
   }

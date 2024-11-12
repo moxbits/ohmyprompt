@@ -25,13 +25,6 @@ export default class Tabs {
     chrome.tabs.onUpdated.addListener(callback);
   }
 
-  static executeScript(tabId, data) {
-    chrome.scripting.executeScript({
-      target: { tabId, allFrames: true },
-      files: [data.file],
-    });
-  }
-
   static isUsable() {
     return !!chrome.tabs;
   }

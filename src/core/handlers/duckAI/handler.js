@@ -1,9 +1,9 @@
-import Messages from "../browser-messages";
+import Messages from "../../browser-messages";
 
-import DuckAIClient from "../services/duckAI/client";
+import DuckAIClient from "./client";
 
-import { types } from "../utils/types";
-import { delay } from "../utils/time";
+import { types } from "../../utils/types";
+import { delay } from "../../utils/time";
 
 async function startDuckAIHandler() {
   const { prompt } = await Messages.send({ action: types.GET_PROMPT });
