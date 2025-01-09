@@ -1,4 +1,4 @@
-# ohmychat_extension
+# OhMyPrompt
 
 A browser extension to help you have LLMs summarize content
 
