@@ -45,9 +45,9 @@ document
   .addEventListener("click", ({ target }) => {
     target.classList.add("hidden");
 
-    document.querySelectorAll(".container .loading-image").forEach((img) => {
-      if (img.classList.contains("hidden")) img.classList.remove("hidden");
-    });
+    document
+      .querySelector(".container.youtube .loading-image")
+      .classList.remove("hidden");
 
     Tabs.sendMessageToCurrentTab({
       action: types.GEN_PROMPT,
@@ -61,9 +61,9 @@ document
 
     target.classList.add("hidden");
 
-    document.querySelectorAll(".container .loading-image").forEach((img) => {
-      if (img.classList.contains("hidden")) img.classList.remove("hidden");
-    });
+    document
+      .querySelector(".container.twitter-thread .loading-image")
+      .classList.remove("hidden");
 
     Tabs.sendMessageToCurrentTab({
       action: types.GEN_PROMPT,
@@ -88,15 +88,5 @@ document
       },
     });
   });
-
-Messages.addListener((message) => {
-  switch (message.action) {
-    case types.MODAL_LOADED:
-      document.querySelectorAll(".loading-image").forEach((img) => {
-        if (!img.classList.contains("hidden")) img.classList.add("hidden");
-      });
-      break;
-  }
-});
 
 initPopup();

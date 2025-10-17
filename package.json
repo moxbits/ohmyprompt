@@ -1,5 +1,5 @@
 {
-  "name": "ohmychat_extension",
+  "name": "ohmyprompt_extension",
   "version": "1.17",
   "description": "a chrome extension for using your browser with GPT batteries included!",
   "main": "dist/index.js",

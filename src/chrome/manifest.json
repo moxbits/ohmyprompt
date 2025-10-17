@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "OhMyChat",
-  "version": "1.17",
+  "name": "OhMyPrompt",
+  "version": "1.18",
   "description": "An extension to include GPT batteries into your browser!",
   "permissions": [
     "declarativeNetRequest",
@@ -32,36 +32,36 @@
   "content_scripts": [
     {
       "matches": [
-        "https://chat.openai.com/?ohmychat=1",
-        "https://chatgpt.com/?ohmychat=1"
+        "https://chat.openai.com/?ohmyprompt=1",
+        "https://chatgpt.com/?ohmyprompt=1"
       ],
       "js": ["chatGPTHandler.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://gemini.google.com/app?ohmychat=1"],
+      "matches": ["https://gemini.google.com/app?ohmyprompt=1"],
       "js": ["geminiHandler.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://claude.ai/chats?ohmychat=1"],
+      "matches": ["https://claude.ai/chats?ohmyprompt=1"],
       "js": ["claudeHandler.js"],
       "run_at": "document_idle"
     },
     {
       "matches": [
-        "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmychat=1"
+        "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmyprompt=1"
       ],
       "js": ["duckAIHandler.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://huggingface.co/chat/?ohmychat=1"],
+      "matches": ["https://huggingface.co/chat/?ohmyprompt=1"],
       "js": ["huggingChatHandler.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://poe.com/?ohmychat=1"],
+      "matches": ["https://poe.com/?ohmyprompt=1"],
       "js": ["poeHandler.js"],
       "run_at": "document_idle"
     },

@@ -1,4 +1,4 @@
-import BaseStorage from "../core/baseStorage";
+import BaseStorage from "../core/utils/baseStorage";
 
 export default class Storage extends BaseStorage {
   static get(keys, callback = () => {}) {

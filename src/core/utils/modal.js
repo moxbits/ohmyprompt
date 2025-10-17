@@ -1,9 +1,9 @@
-import Messages from "./browser-messages";
-import Storage from "./browser-storage";
+import Messages from "../browser-messages";
+import Storage from "../browser-storage";
 
-import modalContent from "../../views/modal/component.html?raw";
-import sharedStyles from "../../views/shared.css?raw";
-import modalStyles from "../../views/modal/styles.css?raw";
+import modalContent from "../../../views/modal/component.html?raw";
+import sharedStyles from "../../../views/shared.css?raw";
+import modalStyles from "../../../views/modal/styles.css?raw";
 
 export default class Modal {
   constructor(preModal = "", options = {}) {
@@ -46,7 +46,7 @@ export default class Modal {
     }
 
     this.__addEvents();
-    Messages.send({ action: types.DISABLE_CSP_BYPASS })
+    Messages.send({ action: types.DISABLE_CSP_BYPASS });
   }
 
   __generatePromptString({ content, template }) {

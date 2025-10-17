@@ -15,24 +15,24 @@ function openEngineLLM() {
   Storage.get("engine", (data) => {
     switch (data.engine) {
       case "chatgpt":
-        Tabs.create({ url: "https://chatgpt.com/?ohmychat=1" });
+        Tabs.create({ url: "https://chatgpt.com/?ohmyprompt=1" });
         break;
       case "gemini":
-        Tabs.create({ url: "https://gemini.google.com/app?ohmychat=1" });
+        Tabs.create({ url: "https://gemini.google.com/app?ohmyprompt=1" });
         break;
       case "claude":
-        Tabs.create({ url: "https://claude.ai/chats?ohmychat=1" });
+        Tabs.create({ url: "https://claude.ai/chats?ohmyprompt=1" });
         break;
       case "duck-ai":
         Tabs.create({
-          url: "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmychat=1",
+          url: "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1&ohmyprompt=1",
         });
         break;
       case "hugging-chat":
-        Tabs.create({ url: "https://huggingface.co/chat/?ohmychat=1" });
+        Tabs.create({ url: "https://huggingface.co/chat/?ohmyprompt=1" });
         break;
       case "poe":
-        Tabs.create({ url: "https://poe.com/?ohmychat=1" });
+        Tabs.create({ url: "https://poe.com/?ohmyprompt=1" });
         break;
       default:
         console.error("no such engine available!!!");

@@ -77,8 +77,4 @@ Messages.addListener(async (message) => {
 
       break;
   }
-
-  Messages.send({
-    action: types.MODAL_LOADED,
-  });
 });

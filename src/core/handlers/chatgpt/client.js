@@ -8,28 +8,18 @@ export default class ChatGPTClient {
   }
 
   async __insertTextIntoChatGPTAndSubmit(text) {
-    const textarea = this.__getTextareaElement();
-    textarea.innerText = text;
+    const textarea = document.querySelector("#prompt-textarea");
+    textarea.innerHTML = `<p>${text}</p>`;
 
     const inputEvent = new Event("input", { bubbles: true });
     textarea.dispatchEvent(inputEvent);
 
     await this.__waitForSubmitButtonToGetGreen();
 
-    this.__getSubmitBtnElement().click();
+    document.querySelector("button[data-testid=send-button]").click();
   }
 
   async __waitForSubmitButtonToGetGreen() {
     await waitUntil(() => !this.__getSubmitBtnElement().disabled);
-  }
-
-  __getTextareaElement() {
-    return document.querySelector("#prompt-textarea p");
-  }
-
-  __getSubmitBtnElement() {
-    return document.querySelector(
-      "button[data-testid=send-button]",
-    );
   }
 }

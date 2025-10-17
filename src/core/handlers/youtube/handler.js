@@ -25,10 +25,6 @@ Messages.addListener(async (message) => {
         const modal = new Modal();
         modal.setPrompt(prompt);
         modal.show();
-
-        Messages.send({
-          action: types.MODAL_LOADED,
-        });
       });
 
       break;
